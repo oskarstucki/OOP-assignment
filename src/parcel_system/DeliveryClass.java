@@ -6,16 +6,25 @@ public abstract class DeliveryClass extends Parcel {
     /**
      * Default constructor
      */
-    public DeliveryClass(double height, double length, double depth, double weight) {
+    public DeliveryClass(double height, double length, double depth, double weight,
+                         double heightLimit, double lengthLimit, double depthLimit, double weightLimit) {
         super(height,length,depth,weight);
+        this.setHeightLimit(heightLimit);
+        this.setLengthLimit(lengthLimit);
+        this.setDepthLimit(depthLimit);
+        this.setWeightLimit(weightLimit);
 
     }
 
 
-    protected double weightLimit;
-    protected double heightLimit;
-    protected double depthLimit;
-    protected double lengthLimit;
+
+    protected double heightLimit; // cm
+    protected double lengthLimit; // cm
+    protected double depthLimit;  // cm
+    protected double weightLimit; // KG
+
+    public abstract int getMaxDistance();
+    public abstract int getWillBreak();
 
     /**
      * @param weightLimit
@@ -74,4 +83,8 @@ public abstract class DeliveryClass extends Parcel {
     public double getLengthLimit() {
         return this.lengthLimit;
     }
+
+
+
+
 }
