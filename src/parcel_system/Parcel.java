@@ -2,39 +2,39 @@ package parcel_system;
 
 public abstract class Parcel {
 
+    /* Number of parcels created.*/
+    private static int count = 0;
+
+    /* Each parcel must be identifiable. */
+    protected int id;
+
+    /* Is content fragile? */
+    protected int fragile = 0;
+
+    /* Is parcel broken? Default is no. */
+    protected int broken = 0;
+
+    /* Properties of parcels */
+    protected double height;
+    protected double length;
+    protected double depth;
+    protected double weight;
+
     /**
      * Default constructor
      */
-    public Parcel(double height, double length, double depth, double weight) {
+    public Parcel(double height, double length, double depth, double weight, int fragile) {
         this.height = height;
         this.length = length;
         this.depth = depth;
         this.weight = weight;
+        this.id = ++count;
+        this.fragile = fragile;
+
     }
 
     /**
-     *
-     */
-    protected double height;
-
-    /**
-     *
-     */
-    protected double length;
-
-    /**
-     *
-     */
-    protected double depth;
-
-    /**
-     *
-     */
-    protected double weight;
-
-
-    /**
-     * @return
+     * @return height
      */
     public double getHeight() {
         return this.height;
@@ -49,7 +49,7 @@ public abstract class Parcel {
     }
 
     /**
-     * @return
+     * @return length
      */
     public double getLength() {
         return this.length;
@@ -63,7 +63,7 @@ public abstract class Parcel {
     }
 
     /**
-     * @return
+     * @return depth
      */
     public double getDepth() {
         return this.depth;
@@ -77,7 +77,7 @@ public abstract class Parcel {
     }
 
     /**
-     * @return
+     * @return weight
      */
     public double getWeight() {
         return this.weight;
@@ -90,4 +90,25 @@ public abstract class Parcel {
         this.weight = weight;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * @return fragile
+     */
+    public int isFragile() {
+        return fragile;
+    }
+
+
+    /**
+     * @return broken
+     */
+    public int isBroken(){
+        return this.broken;
+    }
+
+
 }
+
