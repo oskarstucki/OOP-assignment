@@ -5,88 +5,89 @@ public abstract class Parcel {
     /**
      * Default constructor
      */
-    public Parcel() {
+    public Parcel(double height, double length, double depth, double weight) {
+        this.height = height;
+        this.length = length;
+        this.depth = depth;
+        this.weight = weight;
     }
 
     /**
      *
      */
-    protected double Height;
+    protected double height;
 
     /**
      *
      */
-    protected double Length;
+    protected double length;
 
     /**
      *
      */
-    protected double Depth;
+    protected double depth;
 
     /**
      *
      */
-    protected double Weight;
+    protected double weight;
 
 
     /**
      * @return
      */
     public double getHeight() {
-        // TODO implement here
-        return 0.0d;
+        return this.height;
     }
 
     /**
-     * @param value
+     * @param height
      */
-    public void setHeight(double value) {
-        // TODO implement here
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     /**
      * @return
      */
     public double getLength() {
-        // TODO implement here
-        return 0.0d;
+        return this.length;
     }
 
     /**
-     * @param value
+     * @param length
      */
-    public void setLength(double value) {
-        // TODO implement here
+    public void setLength(double length) {
+        this.length = length;
     }
 
     /**
      * @return
      */
     public double getDepth() {
-        // TODO implement here
-        return 0.0d;
+        return this.depth;
     }
 
     /**
-     * @param value
+     * @param depth
      */
-    public void setDepth(double value) {
-        // TODO implement here
+    public void setDepth(double depth) {
+        this.depth = depth;
     }
 
     /**
      * @return
      */
     public double getWeight() {
-        // TODO implement here
-        return 0.0d;
+        return this.weight;
     }
 
     /**
-     * @param value
+     * @param weight
      */
-    public void setWeight(double value) {
-        // TODO implement here
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
 }
