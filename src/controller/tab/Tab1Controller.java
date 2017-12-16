@@ -1,6 +1,5 @@
 package controller.tab;
 
-import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,17 +8,15 @@ import javafx.scene.control.*;
 import controller.MainController;
 import javafx.scene.web.WebView;
 import map.DataBuilder;
-import map.SmartPost;
-import javax.swing.*;
+
 import java.util.ArrayList;
 
 public class Tab1Controller {
 	
 	private MainController main;
-    private ArrayList<String> listOfCities;
 
     private ObservableList <String> posts;
-
+    private ObservableList <String> delivery_classes;
 
     @FXML
     private Button sendPacket;
@@ -30,7 +27,7 @@ public class Tab1Controller {
     @FXML
     private Button addSmartPost;
     @FXML
-    private ChoiceBox<?> ListOfPacketClasses;
+    private ChoiceBox<String> ListOfPacketClasses;
     @FXML
     private ChoiceBox<?> listOfItems;
 
@@ -49,7 +46,11 @@ public class Tab1Controller {
         posts = FXCollections.observableArrayList(list);
     }
 
-
+    private void setDeliveryClasses(){
+        delivery_classes = FXCollections.observableArrayList(
+                "1. Luokka", "2. Luokka", "3. Luokka");
+        ListOfPacketClasses.setItems(delivery_classes);
+    }
 
 
     @FXML public void initialize() {
@@ -58,6 +59,8 @@ public class Tab1Controller {
         ArrayList<String> cities = db.returnCities();
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
+
+        setDeliveryClasses();
 
 
 

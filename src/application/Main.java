@@ -29,10 +29,9 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		DataBuilder postPoints = new DataBuilder();
-		Tab1Controller tab1 = new Tab1Controller();
-		tab1.setListOfCities(postPoints.returnCities());
+		//DataBuilder postPoints = new DataBuilder();
+		//Tab1Controller tab1 = new Tab1Controller();
+		//tab1.setListOfCities(postPoints.returnCities());
 		launch(args);
-		System.out.println(postPoints.returnCities());
 	}
 }
