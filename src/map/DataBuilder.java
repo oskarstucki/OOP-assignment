@@ -73,10 +73,10 @@ public class DataBuilder {
 
     }
 
-    public SmartPost searchCity(String city){
+    public SmartPost searchCity(String address, int postCode){
 
         for(SmartPost i: smartPosts){
-            if(i.getCity() == city){
+            if(i.getAddress().equals(address) && i.getPostCode() == postCode){
                 return i;
             }
         }

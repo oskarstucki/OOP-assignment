@@ -59,7 +59,9 @@ public class SmartPost {
 
     @Override
     public String toString(){
-        return this.city;
+        String tempInfo = this.postOffice.substring(19);
+
+        return this.city + " (" + tempInfo+")";
     }
 
     public void setAvailable(String available) {

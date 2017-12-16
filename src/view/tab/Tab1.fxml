@@ -55,6 +55,11 @@
                   <Insets left="10.0" top="20.0" />
                </GridPane.margin>
             </ComboBox>
+            <Button fx:id="emptyMaps" mnemonicParsing="false" text="Tyhjennä" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
    </children>
