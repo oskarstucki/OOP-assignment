@@ -29,13 +29,10 @@ public class DataBuilder {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("place");
-            System.out.println("----------------------------");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
@@ -48,28 +45,6 @@ public class DataBuilder {
                     longitude = Float.parseFloat(eElement.getElementsByTagName("lng").item(0).getTextContent());
                     smartPosts.add(new SmartPost(postCode,city,address,available,PostOffice,latitude,longitude));
 
-                    System.out.println("Student roll no : "
-                            + eElement.getAttribute("code"));
-                    System.out.println("City : "
-                            + eElement
-                            .getElementsByTagName("city")
-                            .item(0)
-                            .getTextContent());
-                    System.out.println("Address : "
-                            + eElement
-                            .getElementsByTagName("address")
-                            .item(0)
-                            .getTextContent());
-                    System.out.println("Open : "
-                            + eElement
-                            .getElementsByTagName("availability")
-                            .item(0)
-                            .getTextContent());
-                    System.out.println("Marks : "
-                            + eElement
-                            .getElementsByTagName("postoffice")
-                            .item(0)
-                            .getTextContent());
                 }
             }
         } catch (Exception e) {
@@ -88,13 +63,24 @@ public class DataBuilder {
 
     private ArrayList<String> listOfCities = new ArrayList<String>();
 
-    public ArrayList<String> returnCities(){
+    public ArrayList<SmartPost> returnCities(){
 
        for(SmartPost post: smartPosts){
            listOfCities.add(post.getCity());
 
        }
-       return listOfCities;
+       return smartPosts;
+
+    }
+
+    public SmartPost searchCity(String address, int postCode){
+
+        for(SmartPost i: smartPosts){
+            if(i.getAddress().equals(address) && i.getPostCode() == postCode){
+                return i;
+            }
+        }
+        return null;
 
     }
 }

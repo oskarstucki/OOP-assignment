@@ -5,12 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import controller.MainController;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.web.WebView;
 import map.DataBuilder;
 import parcel_system.*;
+import map.SmartPost;
 import stuff.DefaultItems;
 import stuff.Item;
 
@@ -20,16 +22,17 @@ public class Tab1Controller {
 	
 	private MainController main;
 
-    private ObservableList <String> posts;
+    private ObservableList <SmartPost> posts;
     private ObservableList <String> delivery_classes;
     private ObservableList<String> items;
+    private DataBuilder db = new DataBuilder();
 
     @FXML
     private Button sendPacket;
     @FXML
     private WebView mapView;
     @FXML
-    private ComboBox<String> smartPostLocations;
+    private ComboBox<SmartPost> smartPostLocations;
     @FXML
     private Button addSmartPost;
     @FXML
@@ -89,7 +92,7 @@ public class Tab1Controller {
 
 
 
-    public void setListOfCities(ArrayList<String> list){
+    public void setListOfCities(ArrayList<SmartPost> list){
         posts = FXCollections.observableArrayList(list);
     }
 
@@ -114,11 +117,10 @@ public class Tab1Controller {
 
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
-        DataBuilder db = new DataBuilder();
-        ArrayList<String> cities = db.returnCities();
+
+        ArrayList<SmartPost> cities = db.returnCities();
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
-
         setDeliveryClasses();
         fillDefaultItems();
         initSendButton();
@@ -128,7 +130,9 @@ public class Tab1Controller {
     }
 
     @FXML private void addOnMap(ActionEvent event){
-
+        SmartPost found = db.searchCity(smartPostLocations.getValue().getAddress(), smartPostLocations.getValue().getPostCode());
+        mapView.getEngine().executeScript("document.goToLocation('"+found.getAddress()+", "+ Integer.toString(found.getPostCode())+" "+ found.getCity()+"', '"+found.getAvailable()+"', 'blue')");
+        System.out.println("document.goToLocation('"+found.getAddress()+", "+ Integer.toString(found.getPostCode())+" "+ found.getCity()+"', '"+found.getAvailable()+"', 'blue')");
 
     }
 
