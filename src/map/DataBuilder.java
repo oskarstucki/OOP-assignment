@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class DataBuilder {
 
-    private static ArrayList<SmartPost> smartPosts = new ArrayList<>();
+    public ArrayList<SmartPost> smartPosts = new ArrayList<>();
 
     /**
      *  Default constructor
@@ -86,7 +86,7 @@ public class DataBuilder {
 
     }
 
-    public static ArrayList<String> returnCities(){
+    public ArrayList<String> returnCities(){
         ArrayList<String> listOfCities = new ArrayList<String>();
        for(SmartPost post: smartPosts){
            listOfCities.add(post.getCity());
