@@ -3,17 +3,21 @@ package controller.tab;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import controller.MainController;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import map.DataBuilder;
+import parcel_system.*;
 import map.SmartPost;
 import stuff.DefaultItems;
+import stuff.Item;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,9 +59,50 @@ public class Tab1Controller {
     @FXML
     private void sendPacket(ActionEvent event) {
 
-
-
     }
+
+    private void initSendButton(){
+        sendPacket.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Send button pressed.");
+                String itemName = listOfItems.getValue();
+                int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
+                String deliveryClassName = ListOfPacketClasses.getValue();
+                int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
+                System.out.println(itemName + " sent in class " + deliveryClassName);
+
+                DefaultItems di = new DefaultItems();
+                ArrayList<Item> diArray = di.getDefaultItems();
+                Item item = diArray.get(itemIndex);
+                DeliveryClass delivery;
+                if (deliveryClassIndex == 1) {
+                    FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
+                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                    delivery = d1;
+                } else if (deliveryClassIndex == 2) {
+                    SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
+                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                    delivery = d2;
+                }else {
+                    ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
+                        item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                    delivery = d3;
+                }
+                DeliveryClassSelector selector = new DeliveryClassSelector();
+                boolean value = selector.testDeliveryClass(item,delivery);
+
+                }
+
+
+
+
+            }
+        );
+    }
+
+
+
 
     public void setListOfCities(ArrayList<SmartPost> list){
         posts = FXCollections.observableArrayList(list);
@@ -90,6 +135,7 @@ public class Tab1Controller {
         smartPostLocations.setItems(this.posts);
         setDeliveryClasses();
         fillDefaultItems();
+        initSendButton();
 
 
 
