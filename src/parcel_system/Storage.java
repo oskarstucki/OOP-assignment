@@ -2,10 +2,7 @@ package parcel_system;
 
 import org.omg.CORBA.Object;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -113,9 +110,43 @@ public class Storage {
         }
     }
 
-
-    public void getStoredData(){
-        //TODO
+    /**
+     * Reads data from saved file.
+     * @param shippingClass 1st, 2nd or 3rd
+     */
+    public void getStoredData(int shippingClass){
+        try {
+            String homeDir = System.getProperty("user.home");
+            String path = homeDir + File.separator + "TIMO_savedData" + File.separator;
+            FileInputStream fis;
+            ObjectInputStream ois;
+            switch (shippingClass) {
+                case 1:
+                    fis = new FileInputStream(path + "priority");
+                    ois = new ObjectInputStream(fis);
+                    priority = (ArrayList) ois.readObject();
+                    break;
+                case 2:
+                    fis = new FileInputStream(path + "standard");
+                    ois = new ObjectInputStream(fis);
+                    standard = (ArrayList) ois.readObject();
+                    break;
+                case 3:
+                    fis = new FileInputStream(path + "economy");
+                    ois = new ObjectInputStream(fis);
+                    economy = (ArrayList) ois.readObject();
+                    break;
+                default:
+                    throw new RuntimeException("Incorrect class.");
+            }
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (ClassNotFoundException cnf) {
+            System.out.println("Class not found.");
+            cnf.printStackTrace();
+        }
     }
 
 
