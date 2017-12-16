@@ -50,17 +50,17 @@ public class DataBuilder {
 
                     System.out.println("Student roll no : "
                             + eElement.getAttribute("code"));
-                    System.out.println("First Name : "
+                    System.out.println("City : "
                             + eElement
                             .getElementsByTagName("city")
                             .item(0)
                             .getTextContent());
-                    System.out.println("Last Name : "
+                    System.out.println("Address : "
                             + eElement
                             .getElementsByTagName("address")
                             .item(0)
                             .getTextContent());
-                    System.out.println("Nick Name : "
+                    System.out.println("Open : "
                             + eElement
                             .getElementsByTagName("availability")
                             .item(0)
