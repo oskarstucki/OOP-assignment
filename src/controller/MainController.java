@@ -14,9 +14,6 @@ public class MainController {
 		tab2Controller.init(this);
 	}
 
-	public String loadLblTextFromTab1() {
-		return tab1Controller.lbl1.getText();
-	}
 
 	public void setTab2LabelText(String text) {
 		tab2Controller.lbl2.setText(text);

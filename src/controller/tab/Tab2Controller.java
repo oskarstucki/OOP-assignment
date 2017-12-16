@@ -21,11 +21,7 @@ public class Tab2Controller {
 		
 		lbl2.setText(txt2.getText());
 	}
-	
-	@FXML private void btn2LoadClicked(ActionEvent event) {
-		System.out.println("Btn 2 load clicked");
-		lbl2.setText(main.loadLblTextFromTab1());
-	}
+
 
 	public void init(MainController mainController) {
 		main = mainController;
