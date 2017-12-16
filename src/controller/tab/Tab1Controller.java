@@ -8,6 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import controller.MainController;
 import javafx.scene.web.WebView;
+import map.DataBuilder;
+import map.SmartPost;
+
+import javax.swing.*;
+import java.util.ArrayList;
 
 public class Tab1Controller {
 	
@@ -39,6 +44,15 @@ public class Tab1Controller {
 
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
+        ArrayList<String> listOfCities = new ArrayList<String>();
+        listOfCities = DataBuilder.returnCities();
+        JComboBox<SmartPost> posts = new JComboBox<SmartPost>();
+
+    }
+
+    @FXML private void addOnMap(ActionEvent event){
+
+
     }
 
 
