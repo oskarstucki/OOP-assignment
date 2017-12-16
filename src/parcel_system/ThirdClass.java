@@ -10,8 +10,8 @@ public class ThirdClass extends DeliveryClass {
      * Default constructor
      * Third class packages can be 60 cm x 185 cm x 120 cm and weight 50 kg.
      */
-    public ThirdClass(double height, double length, double depth, double weight, int fragile) {
-        super(height,length,depth,weight, fragile, 60, 185, 120, 50);
+    public ThirdClass(double height, double length, double depth, double weight, int fragile, String content) {
+        super(height,length,depth,weight, fragile,content, 60, 185, 120, 50);
         this.didNonFragileBreak();
     }
 

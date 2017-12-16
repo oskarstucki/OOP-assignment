@@ -6,8 +6,8 @@ public class FirstClass extends DeliveryClass {
      * Default constructor
      * First class packages can be 10 cm x 30 cm x 20 cm and weight 3 kg.
      */
-    public FirstClass(double height, double length, double depth, double weight, int fragile) {
-        super(height,length,depth,weight,fragile,10,30, 20, 3);
+    public FirstClass(double height, double length, double depth, double weight, int fragile, String content) {
+        super(height,length,depth,weight,fragile,content,10,30, 20, 3);
     }
 
     /**

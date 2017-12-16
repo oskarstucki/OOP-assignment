@@ -6,8 +6,8 @@ public class SecondClass extends DeliveryClass {
      * Default constructor
      * Second class packages can be 5 cm x 30 cm x 20 cm and weight 2 kg.
      */
-    public SecondClass(double height, double length, double depth, double weight, int fragile) {
-        super(height,length,depth,weight, fragile, 5,30, 20, 2);
+    public SecondClass(double height, double length, double depth, double weight, int fragile, String content) {
+        super(height,length,depth,weight, fragile, content,5, 30, 20, 2);
 
     }
 

@@ -6,9 +6,9 @@ public abstract class DeliveryClass extends Parcel {
     /**
      * Default constructor
      */
-    public DeliveryClass(double height, double length, double depth, double weight, int fragile,
+    public DeliveryClass(double height, double length, double depth, double weight, int fragile, String content,
                          double heightLimit, double lengthLimit, double depthLimit, double weightLimit) {
-        super(height,length,depth,weight,fragile);
+        super(height,length,depth,weight,fragile,content);
         this.setHeightLimit(heightLimit);
         this.setLengthLimit(lengthLimit);
         this.setDepthLimit(depthLimit);

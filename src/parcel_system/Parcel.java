@@ -20,16 +20,20 @@ public abstract class Parcel {
     protected double depth;
     protected double weight;
 
+    /* String content */
+    protected String content;
+
     /**
      * Default constructor
      */
-    public Parcel(double height, double length, double depth, double weight, int fragile) {
+    public Parcel(double height, double length, double depth, double weight, int fragile, String content) {
         this.height = height;
         this.length = length;
         this.depth = depth;
         this.weight = weight;
         this.id = ++count;
         this.fragile = fragile;
+        this.content = content;
 
     }
 
@@ -107,6 +111,14 @@ public abstract class Parcel {
      */
     public int isBroken(){
         return this.broken;
+    }
+
+    /**
+     *
+     * @return content
+     */
+    public String getContent(){
+        return this.content;
     }
 
 
