@@ -7,7 +7,7 @@ public class FirstClass extends DeliveryClass {
      * First class packages can be 10 cm x 30 cm x 20 cm and weight 3 kg.
      */
     public FirstClass(double height, double length, double depth, double weight) {
-        super(height,length,depth,weight, 10, 30, 20, 3);
+        super(height,length,depth,weight, 10, 30, 20, 3, 20);
     }
 
     /**

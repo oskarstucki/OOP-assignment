@@ -7,7 +7,7 @@ public class SecondClass extends DeliveryClass {
      * Second class packages can be 5 cm x 30 cm x 20 cm and weight 2 kg.
      */
     public SecondClass(double height, double length, double depth, double weight) {
-        super(height,length,depth,weight, 5, 30, 20, 2);
+        super(height,length,depth,weight, 5, 30, 20, 2, 20);
 
     }
 
