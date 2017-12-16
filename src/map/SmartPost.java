@@ -57,6 +57,11 @@ public class SmartPost {
         return longitude;
     }
 
+    @Override
+    public String toString(){
+        return this.city;
+    }
+
     public void setAvailable(String available) {
         this.available = available;
     }

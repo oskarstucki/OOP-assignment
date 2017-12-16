@@ -25,7 +25,7 @@
                </GridPane.margin>
             </Button>
             <WebView fx:id="mapView" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button fx:id="addSmartPost" mnemonicParsing="false" text="Lisää" GridPane.rowIndex="1">
+            <Button fx:id="addSmartPost" mnemonicParsing="false" onAction="#addOnMap" text="Lisää" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
