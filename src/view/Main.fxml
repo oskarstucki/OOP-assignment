@@ -17,6 +17,10 @@
                <content>
                   <fx:include fx:id="tab2" source="tab/Tab2.fxml" />
                </content></Tab>
+            <Tab closable="false" text="Lisää asia">
+                <content>
+                    <fx:include fx:id="tab3" source="tab/Tab3.fxml" />
+                </content></Tab>
         </tabs>
       </TabPane>
    </children>

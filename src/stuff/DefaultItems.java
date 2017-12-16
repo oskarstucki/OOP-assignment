@@ -34,4 +34,16 @@ public class DefaultItems {
         }
         return contents;
     }
+
+    public void AddnewItem(double height, double length, double depth, double weight, String content){
+        double fragile = Math.random();
+        if (fragile > 0.49){
+            fragile = 1;
+
+        }else{
+            fragile = 0;
+        }
+        int intValue = (int) fragile;
+        items.add(new Item(height, length, depth, weight,intValue, content));
+    }
 }

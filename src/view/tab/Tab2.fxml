@@ -5,4 +5,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="206.0" prefWidth="226.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.tab.Tab2Controller" />
+
+<AnchorPane prefHeight="366.0" prefWidth="377.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.tab.Tab2Controller">
+   <children>
+      <TreeTableView layoutY="3.0" prefHeight="369.0" prefWidth="377.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TreeTableColumn prefWidth="75.0" text="C2">
+               <columns>
+                  <TreeTableColumn prefWidth="75.0" text="Column X">
+                     <columns>
+                        <TreeTableColumn prefWidth="75.0" text="Column X" />
+                     </columns>
+                  </TreeTableColumn>
+               </columns>
+            </TreeTableColumn>
+            <TreeTableColumn prefWidth="75.0" text="Column X" />
+            <TreeTableColumn prefWidth="75.0" text="Column X" />
+            <TreeTableColumn prefWidth="75.0" text="Column X" />
+            <TreeTableColumn prefWidth="75.0" text="Column X" />
+        </columns>
+      </TreeTableView>
+   </children>
+</AnchorPane>
