@@ -20,9 +20,7 @@ public class Tab1Controller {
 
     private ObservableList <String> posts;
 
-    public void setListOfCities(ArrayList<String> list){
-        this.posts = FXCollections.observableArrayList(list);
-    }
+
     @FXML
     private Button sendPacket;
     @FXML
@@ -47,9 +45,18 @@ public class Tab1Controller {
 
     }
 
+    public void setListOfCities(ArrayList<String> list){
+        posts = FXCollections.observableArrayList(list);
+    }
+
+
+
+
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
-
+        DataBuilder db = new DataBuilder();
+        ArrayList<String> cities = db.returnCities();
+        setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
 
 

@@ -33,6 +33,6 @@ public class Main extends Application {
 		Tab1Controller tab1 = new Tab1Controller();
 		tab1.setListOfCities(postPoints.returnCities());
 		launch(args);
-
+		System.out.println(postPoints.returnCities());
 	}
 }

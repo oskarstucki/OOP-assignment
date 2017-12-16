@@ -86,8 +86,10 @@ public class DataBuilder {
 
     }
 
+    private ArrayList<String> listOfCities = new ArrayList<String>();
+
     public ArrayList<String> returnCities(){
-        ArrayList<String> listOfCities = new ArrayList<String>();
+
        for(SmartPost post: smartPosts){
            listOfCities.add(post.getCity());
 
