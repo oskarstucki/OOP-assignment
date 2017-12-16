@@ -1,12 +1,13 @@
 package parcel_system;
 
+
 public abstract class Parcel {
 
     /* Number of parcels created.*/
     private static int count = 0;
 
     /* Each parcel must be identifiable. */
-    protected int id;
+    private final int id;
 
     /* Is content fragile? */
     protected int fragile = 0;
@@ -15,13 +16,13 @@ public abstract class Parcel {
     protected int broken = 0;
 
     /* Properties of parcels */
-    protected double height;
-    protected double length;
-    protected double depth;
-    protected double weight;
+    private double height;
+    private double length;
+    private double depth;
+    private double weight;
 
     /* String content */
-    protected String content;
+    private final String content;
 
     /**
      * Default constructor
@@ -45,9 +46,8 @@ public abstract class Parcel {
     }
 
     /**
-     * @param height
+     * @param height of the package
      */
-
     public void setHeight(double height) {
         this.height = height;
     }
@@ -60,7 +60,7 @@ public abstract class Parcel {
     }
 
     /**
-     * @param length
+     * @param length of the package
      */
     public void setLength(double length) {
         this.length = length;
@@ -74,7 +74,7 @@ public abstract class Parcel {
     }
 
     /**
-     * @param depth
+     * @param depth of the package
      */
     public void setDepth(double depth) {
         this.depth = depth;
@@ -88,7 +88,7 @@ public abstract class Parcel {
     }
 
     /**
-     * @param weight
+     * @param weight of the package
      */
     public void setWeight(double weight) {
         this.weight = weight;
