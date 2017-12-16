@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class DefaultItems {
 
+    private ArrayList<Item> items = new ArrayList<>();
+
     public DefaultItems(){
         createItems();
     }
@@ -13,7 +15,7 @@ public class DefaultItems {
         Item frisbee = new Item(3, 20, 20, 0.3, 0, "Frisbee");
         Item mug = new Item(7, 12, 7, 0.2, 1, "Iittala Taika-muki");
         Item fridge = new Item(60, 180, 67, 63, 1,"Electrolux jääkaappi");
-        ArrayList<Item> items = new ArrayList<>();
+
         items.add(dvd);
         items.add(frisbee);
         items.add(mug);
@@ -21,4 +23,15 @@ public class DefaultItems {
         return items;
     }
 
+    public ArrayList<Item> getDefaultItems() {
+        return items;
+    }
+
+    public ArrayList<String> getNames(){
+        ArrayList<String> contents = new ArrayList<>();
+        for (Item i:items) {
+            contents.add(i.getContent());
+        }
+        return contents;
+    }
 }

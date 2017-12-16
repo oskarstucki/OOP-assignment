@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import controller.MainController;
 import javafx.scene.web.WebView;
 import map.DataBuilder;
+import stuff.DefaultItems;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Tab1Controller {
 
     private ObservableList <String> posts;
     private ObservableList <String> delivery_classes;
+    private ObservableList<String> items;
 
     @FXML
     private Button sendPacket;
@@ -29,7 +31,7 @@ public class Tab1Controller {
     @FXML
     private ChoiceBox<String> ListOfPacketClasses;
     @FXML
-    private ChoiceBox<?> listOfItems;
+    private ChoiceBox<String> listOfItems;
 
     /**
      * Initializes the controller class.
@@ -46,10 +48,22 @@ public class Tab1Controller {
         posts = FXCollections.observableArrayList(list);
     }
 
+    /**
+     * Method for filling choise box ListOfPacketClasses.
+     */
     private void setDeliveryClasses(){
         delivery_classes = FXCollections.observableArrayList(
                 "1. Luokka", "2. Luokka", "3. Luokka");
         ListOfPacketClasses.setItems(delivery_classes);
+    }
+
+    /**
+     * Method for filling the choise box with default items.
+     */
+    private void fillDefaultItems(){
+        DefaultItems di = new DefaultItems();
+        items = FXCollections.observableArrayList(di.getNames());
+        listOfItems.setItems(items);
     }
 
 
@@ -61,6 +75,7 @@ public class Tab1Controller {
         smartPostLocations.setItems(this.posts);
 
         setDeliveryClasses();
+        fillDefaultItems();
 
 
 
