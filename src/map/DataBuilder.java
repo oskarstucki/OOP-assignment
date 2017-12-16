@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class DataBuilder {
 
-    private ArrayList<SmartPost> smartPosts = new ArrayList<>();
+    public ArrayList<SmartPost> smartPosts = new ArrayList<>();
 
     /**
      *  Default constructor
