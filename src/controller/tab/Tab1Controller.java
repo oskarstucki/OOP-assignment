@@ -1,12 +1,11 @@
 package controller.tab;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import controller.MainController;
 import javafx.scene.web.WebView;
 import map.DataBuilder;
@@ -19,16 +18,17 @@ public class Tab1Controller {
 	private MainController main;
     private ArrayList<String> listOfCities;
 
-    private JComboBox<String> posts = new JComboBox<String>();
+    private ObservableList <String> posts;
+
     public void setListOfCities(ArrayList<String> list){
-        this.posts = list.toArray();
+        this.posts = FXCollections.observableArrayList(list);
     }
     @FXML
     private Button sendPacket;
     @FXML
     private WebView mapView;
     @FXML
-    private ChoiceBox<?> smartPostLocations;
+    private ComboBox<String> smartPostLocations;
     @FXML
     private Button addSmartPost;
     @FXML
@@ -49,7 +49,8 @@ public class Tab1Controller {
 
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
-        ArrayList<String> listOfCities = new ArrayList<String>();
+
+        smartPostLocations.setItems(this.posts);
 
 
 
