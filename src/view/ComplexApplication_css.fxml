@@ -16,9 +16,9 @@
         <tabs>
           <Tab text="Lähetä">
             <content>
-              <AnchorPane>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="900.0">
                      <children>
-                      <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="-149.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="0.0">
+                      <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0">
                         <items>
                           <AnchorPane prefHeight="714.0" prefWidth="203.0">
                             <children>

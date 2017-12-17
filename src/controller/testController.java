@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.web.WebView;
 import map.DataBuilder;
 import map.SmartPost;
@@ -34,9 +31,19 @@ public class testController {
     @FXML
     private Button addSmartPost;
     @FXML
-    private ChoiceBox<String> ListOfPacketClasses;
+    private ComboBox<String> ListOfPacketClasses;
     @FXML
-    private ChoiceBox<String> listOfItems;
+    private ComboBox<String> listOfItems;
+    @FXML
+    private ComboBox<String> senderPost;
+    @FXML
+    private ComboBox<String> ReceivePost;
+    @FXML
+    private TextField newThingName;
+    @FXML
+    private TextField newThingWeight;
+    @FXML
+    private TextField newThingSize;
     @FXML
     private Button emptyMapButton;
 
@@ -120,7 +127,7 @@ public class testController {
 
 
     @FXML public void initialize() {
-        mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
+        /*mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
 
         ArrayList<SmartPost> cities = db.returnCities();
         setListOfCities(cities);
@@ -128,7 +135,7 @@ public class testController {
         setDeliveryClasses();
         fillDefaultItems();
         initSendButton();
-
+*/
 
 
     }
