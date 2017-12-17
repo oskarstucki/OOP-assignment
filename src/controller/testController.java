@@ -53,6 +53,8 @@ public class testController {
     @FXML
     private ComboBox<SmartPost> receiverPost;
     @FXML
+    private ComboBox<Parcel> wareHousePackets;
+    @FXML
     private TextField newThingName;
     @FXML
     private TextField newThingWeight;
@@ -64,6 +66,10 @@ public class testController {
     private TextField newThingWidth;
     @FXML
     private Button emptyMapButton;
+    @FXML
+    private Button sendChosen;
+    @FXML
+    private Button sendAll;
 
     @FXML
     private CheckBox fragile;
@@ -432,6 +438,14 @@ public class testController {
         mapView.getEngine().executeScript("document.createPath("
                 + coordinates + ",'blue',"
                 + ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue() + ")");
+
+    }
+
+    @FXML private void sendChosenpack(ActionEvent event){
+
+    }
+
+    @FXML private void sendAllpack(ActionEvent event){
 
     }
 }
