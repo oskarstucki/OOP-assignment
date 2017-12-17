@@ -107,6 +107,13 @@ public class testController {
                 int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
                 System.out.println(itemName + " sent in class " + deliveryClassName);
 
+                SmartPost source;
+                SmartPost destination;
+                source = db.searchCity(senderPost.getValue().getAddress(),
+                        senderPost.getValue().getPostCode());
+                destination = db.searchCity(receiverPost.getValue().getAddress(),
+                        receiverPost.getValue().getPostCode());
+
                 boolean value;
                 Item item = itemsArray.get(itemIndex);
                 DeliveryClassSelector selector = new DeliveryClassSelector();
@@ -115,6 +122,8 @@ public class testController {
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
                     value = selector.testDeliveryClass(item,d1);
                     if (value == true) {
+                        d1.setDestination(destination);
+                        d1.setSource(source);
                         warehouse.AddPackage(d1);
                     }
                 } else if (deliveryClassIndex == 1) {
@@ -122,6 +131,8 @@ public class testController {
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
                     value = selector.testDeliveryClass(item,d2);
                     if (value == true){
+                        d2.setDestination(destination);
+                        d2.setSource(source);
                         warehouse.AddPackage(d2);
                     }
                 }else if (deliveryClassIndex == 2) {
@@ -129,6 +140,8 @@ public class testController {
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
                     value = selector.testDeliveryClass(item,d3);
                     if (value == true){
+                        d3.setDestination(destination);
+                        d3.setSource(source);
                         warehouse.AddPackage(d3);
                     }
                 }
@@ -257,9 +270,23 @@ public class testController {
     }
 
 
-    @FXML public void handleDestinationAction(ActionEvent event){
-        SmartPost found = db.searchCity(receiverPost.getValue().getAddress(), receiverPost.getValue().getPostCode());
-        mapView.getEngine().executeScript("document.goToLocation('"+found.getAddress()+", "+ Integer.toString(found.getPostCode())+" "+ found.getCity()+"', '"+found.getAvailable()+"', 'orange')");
-    }
+    @FXML public void handleDestinationAction(ActionEvent event) {
+        SmartPost sender = db.searchCity(senderPost.getValue().getAddress(), senderPost.getValue().getPostCode());
+        SmartPost receiver = db.searchCity(receiverPost.getValue().getAddress(), receiverPost.getValue().getPostCode());
+        mapView.getEngine().executeScript("document.goToLocation('" + receiver.getAddress() + ", " + Integer.toString(receiver.getPostCode()) + " " + receiver.getCity() + "', '" + receiver.getAvailable() + "', 'orange')");
+        double senderLat = sender.getLatitude();
+        double senderLng = sender.getLongitude();
+        double receiverLat = receiver.getLatitude();
+        double receiverLng = receiver.getLongitude();
 
+        ArrayList<String> coordinates = new ArrayList<>();
+        coordinates.add(String.valueOf(senderLat));
+        coordinates.add(String.valueOf(senderLng));
+        coordinates.add(String.valueOf(receiverLat));
+        coordinates.add(String.valueOf(receiverLng));
+        mapView.getEngine().executeScript("document.createPath("
+                + coordinates + ",'blue',"
+                + ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue() + ")");
+
+    }
 }

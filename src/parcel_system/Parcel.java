@@ -2,6 +2,7 @@ package parcel_system;
 
 
 import map.GeopointAdder;
+import map.SmartPost;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -30,8 +31,8 @@ public abstract class Parcel implements Serializable{
     private final String content;
 
     /* Destination and source */
-    private String destination;
-    private String source;
+    private SmartPost destination;
+    private SmartPost source;
 
     private double[] sourceCoordinates = new double[2];
     private double[] destinationCoordinates = new double[2];
@@ -145,19 +146,19 @@ public abstract class Parcel implements Serializable{
     }
 
 
-    public void setDestination(String destination){
+    public void setDestination(SmartPost destination){
         this.destination = destination;
     }
 
-    public String getDestination() {
+    public SmartPost getDestination() {
         return destination;
     }
 
-    public void setSource(String source){
+    public void setSource(SmartPost source){
         this.source = source;
     }
 
-    public java.lang.String getSource() {
+    public SmartPost getSource() {
         return source;
     }
 
