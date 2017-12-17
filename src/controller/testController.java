@@ -1,35 +1,25 @@
-package controller.tab;
+package controller;
 
-import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import controller.MainController;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import map.DataBuilder;
-import parcel_system.*;
 import map.SmartPost;
+import parcel_system.*;
 import stuff.DefaultItems;
 import stuff.Item;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Tab1Controller {
-	
-	private MainController main;
-
-    private ObservableList <SmartPost> posts;
+public class testController {
+    private ObservableList<SmartPost> posts;
     private ObservableList <String> delivery_classes;
     private ObservableList<String> items;
     private DataBuilder db = new DataBuilder();
@@ -65,41 +55,41 @@ public class Tab1Controller {
 
     private void initSendButton(){
         sendPacket.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Send button pressed.");
-                String itemName = listOfItems.getValue();
-                int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
-                String deliveryClassName = ListOfPacketClasses.getValue();
-                int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
-                System.out.println(itemName + " sent in class " + deliveryClassName);
+                                   @Override
+                                   public void handle(ActionEvent event) {
+                                       System.out.println("Send button pressed.");
+                                       String itemName = listOfItems.getValue();
+                                       int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
+                                       String deliveryClassName = ListOfPacketClasses.getValue();
+                                       int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
+                                       System.out.println(itemName + " sent in class " + deliveryClassName);
 
-                DefaultItems di = new DefaultItems();
-                ArrayList<Item> diArray = di.getDefaultItems();
-                Item item = diArray.get(itemIndex);
-                DeliveryClass delivery;
-                if (deliveryClassIndex == 1) {
-                    FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
-                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    delivery = d1;
-                } else if (deliveryClassIndex == 2) {
-                    SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
-                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    delivery = d2;
-                }else {
-                    ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
-                        item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    delivery = d3;
-                }
-                DeliveryClassSelector selector = new DeliveryClassSelector();
-                boolean value = selector.testDeliveryClass(item,delivery);
+                                       DefaultItems di = new DefaultItems();
+                                       ArrayList<Item> diArray = di.getDefaultItems();
+                                       Item item = diArray.get(itemIndex);
+                                       DeliveryClass delivery;
+                                       if (deliveryClassIndex == 1) {
+                                           FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
+                                                   item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                                           delivery = d1;
+                                       } else if (deliveryClassIndex == 2) {
+                                           SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
+                                                   item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                                           delivery = d2;
+                                       }else {
+                                           ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
+                                                   item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                                           delivery = d3;
+                                       }
+                                       DeliveryClassSelector selector = new DeliveryClassSelector();
+                                       boolean value = selector.testDeliveryClass(item,delivery);
 
-                }
-
-
+                                   }
 
 
-            }
+
+
+                               }
         );
     }
 
@@ -205,9 +195,4 @@ public class Tab1Controller {
         alert.showAndWait();
     }
 
-
-
-    public void init(MainController mainController) {
-		main = mainController;
-	}
 }
