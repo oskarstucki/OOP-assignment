@@ -257,9 +257,23 @@ public class testController {
     }
 
 
-    @FXML public void handleDestinationAction(ActionEvent event){
-        SmartPost found = db.searchCity(receiverPost.getValue().getAddress(), receiverPost.getValue().getPostCode());
-        mapView.getEngine().executeScript("document.goToLocation('"+found.getAddress()+", "+ Integer.toString(found.getPostCode())+" "+ found.getCity()+"', '"+found.getAvailable()+"', 'orange')");
-    }
+    @FXML public void handleDestinationAction(ActionEvent event) {
+        SmartPost sender = db.searchCity(senderPost.getValue().getAddress(), senderPost.getValue().getPostCode());
+        SmartPost receiver = db.searchCity(receiverPost.getValue().getAddress(), receiverPost.getValue().getPostCode());
+        mapView.getEngine().executeScript("document.goToLocation('" + receiver.getAddress() + ", " + Integer.toString(receiver.getPostCode()) + " " + receiver.getCity() + "', '" + receiver.getAvailable() + "', 'orange')");
+        double senderLat = sender.getLatitude();
+        double senderLng = sender.getLongitude();
+        double receiverLat = receiver.getLatitude();
+        double receiverLng = receiver.getLongitude();
 
+        ArrayList<String> coordinates = new ArrayList<>();
+        coordinates.add(String.valueOf(senderLat));
+        coordinates.add(String.valueOf(senderLng));
+        coordinates.add(String.valueOf(receiverLat));
+        coordinates.add(String.valueOf(receiverLng));
+        mapView.getEngine().executeScript("document.createPath("
+                + coordinates + ",'blue',"
+                + ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue() + ")");
+
+    }
 }
