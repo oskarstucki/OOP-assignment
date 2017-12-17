@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -17,7 +24,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<VBox prefHeight="603.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.testController">
+<VBox prefHeight="603.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.testController">
   <children>
       <TabPane prefHeight="605.0" prefWidth="890.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -74,7 +81,7 @@
                                     <TextField fx:id="newThingHeight" layoutX="30.0" layoutY="220.0" text=" Koko(cm)     korkeus" />
                                     <TextField fx:id="newThingWidth" layoutX="31.0" layoutY="253.0" text=" Koko(cm)     leveys" />
                                     <Button fx:id="addItem" layoutX="33.0" layoutY="288.0" mnemonicParsing="false" onAction="#AddNewItem" prefHeight="27.0" prefWidth="97.0" text="Lisää esine" />
-                                    <CheckBox fx:id="fragile" layoutX="108.0" layoutY="100.0" mnemonicParsing="false" text="Särkyvää" />
+                                    <CheckBox fx:id="fragile" layoutX="134.0" layoutY="292.0" mnemonicParsing="false" text="Särkyvää" />
                             </children>
                           </AnchorPane>
                         </items>
@@ -88,6 +95,11 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
+            <Tab text="Paketit varastossa">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
   </children>
