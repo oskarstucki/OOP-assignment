@@ -14,9 +14,9 @@ public class Storage {
     /**
      * Holds packages.
      */
-    private static ArrayList<FirstClass> priority = new ArrayList<FirstClass>();
-    private static ArrayList<SecondClass> standard = new ArrayList<SecondClass>();
-    private static ArrayList<ThirdClass> economy = new ArrayList<ThirdClass>();
+    private static ArrayList<FirstClass> priority = new ArrayList<>();
+    private static ArrayList<SecondClass> standard = new ArrayList<>();
+    private static ArrayList<ThirdClass> economy = new ArrayList<>();
     /**
      * Private constructor for singleton
      */
@@ -77,7 +77,7 @@ public class Storage {
     }
     public void AddPackage(ThirdClass parcel) {
         economy.add(parcel);
-        System.out.println("2nd class package containing " + parcel.getContent() + " was added to storage.");
+        System.out.println("3rd class package containing " + parcel.getContent() + " was added to storage.");
     }
 
 

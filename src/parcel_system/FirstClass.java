@@ -1,6 +1,8 @@
 package parcel_system;
 
-public class FirstClass extends DeliveryClass {
+import java.io.Serializable;
+
+public class FirstClass extends DeliveryClass implements Serializable{
 
     /**
      * Default constructor
