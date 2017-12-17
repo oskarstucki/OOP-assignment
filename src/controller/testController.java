@@ -42,7 +42,7 @@ public class testController {
     @FXML
     private ComboBox<SmartPost> senderPost;
     @FXML
-    private ComboBox<SmartPost> ReceivePost;
+    private ComboBox<SmartPost> receiverPost;
     @FXML
     private TextField newThingName;
     @FXML
@@ -173,7 +173,7 @@ public class testController {
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
         senderPost.setItems(this.posts);
-        ReceivePost.setItems(this.posts);
+        receiverPost.setItems(this.posts);
 
         setDeliveryClasses();
         fillDefaultItems();
@@ -249,6 +249,17 @@ public class testController {
         alert.setHeaderText(null);
         alert.setContentText(allerter);
         alert.showAndWait();
+    }
+
+    @FXML public void handleSourceAction(ActionEvent event){
+        SmartPost found = db.searchCity(senderPost.getValue().getAddress(), senderPost.getValue().getPostCode());
+        mapView.getEngine().executeScript("document.goToLocation('"+found.getAddress()+", "+ Integer.toString(found.getPostCode())+" "+ found.getCity()+"', '"+found.getAvailable()+"', 'orange')");
+    }
+
+
+    @FXML public void handleDestinationAction(ActionEvent event){
+        SmartPost found = db.searchCity(receiverPost.getValue().getAddress(), receiverPost.getValue().getPostCode());
+        mapView.getEngine().executeScript("document.goToLocation('"+found.getAddress()+", "+ Integer.toString(found.getPostCode())+" "+ found.getCity()+"', '"+found.getAvailable()+"', 'orange')");
     }
 
 }
