@@ -162,12 +162,14 @@ public class Tab1Controller {
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
         ArrayList<SmartPost> cities = db.returnCities();
-        loadPreviousData();
+
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
         setDeliveryClasses();
         fillDefaultItems();
         initSendButton();
+
+        loadPreviousData();
 
 
 

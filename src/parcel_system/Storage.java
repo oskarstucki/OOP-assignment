@@ -2,6 +2,8 @@ package parcel_system;
 
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +14,9 @@ public class Storage {
     /**
      * Holds packages.
      */
-    private static ArrayList<FirstClass> priority = new ArrayList<>();
-    private static ArrayList<SecondClass> standard = new ArrayList<>();
-    private static ArrayList<ThirdClass> economy = new ArrayList<>();
+    private static ArrayList<FirstClass> priority = new ArrayList<FirstClass>();
+    private static ArrayList<SecondClass> standard = new ArrayList<SecondClass>();
+    private static ArrayList<ThirdClass> economy = new ArrayList<ThirdClass>();
     /**
      * Private constructor for singleton
      */
@@ -81,36 +83,54 @@ public class Storage {
 
     /**
      * Writes the content of Storage to a file.
-     * @param a array list of packages
+     * @param shippingClass int of shipping class
      */
-    public void saveStorageState(ArrayList<?> a){
-        if (a.size() > 0) {
+    public void saveStorageState(int shippingClass){
             try {
-                String homeDir = System.getProperty("user.home");
-                String path = homeDir + File.separator + "TIMO_savedData" + File.separator;
+                Path p;
                 FileOutputStream fos;
-                switch (a.get(0).getClass().getName()) {
-                    case "FirstClass":
-                        fos = new FileOutputStream(path + "priority");
+                ObjectOutputStream oos;
+                File dir = new File(Paths.get(System.getProperty("user.home"),
+                        "TIMO_savedStorageData").toString());
+                if (!dir.exists()){
+                    System.out.println("Creating new directory: " + dir.getName());
+                    try {
+                        dir.mkdir();
+                    }catch (SecurityException se){
+                        se.printStackTrace();
+                        System.out.println("Was not able to create new directory.");
+                    }
+                }
+                switch (shippingClass) {
+                    case 1:
+                        p = Paths.get(System.getProperty("user.home"),"TIMO_savedStorageData", "priority");
+                        fos = new FileOutputStream(p.toString());
+                        oos = new ObjectOutputStream(fos);
+                        oos.writeObject(priority);
                         break;
-                    case "SecondClass":
-                        fos = new FileOutputStream(path + "standard");
+                    case 2:
+                        p = Paths.get(System.getProperty("user.home"),"TIMO_savedStorageData", "standard");
+                        fos = new FileOutputStream(p.toString());
+                        oos = new ObjectOutputStream(fos);
+                        oos.writeObject(standard);
                         break;
-                    case "ThirdClass":
-                        fos = new FileOutputStream(path +"economy");
+                    case 3:
+                        p = Paths.get(System.getProperty("user.home"),"TIMO_savedStorageData", "economy");
+                        fos = new FileOutputStream(p.toString());
+                        oos = new ObjectOutputStream(fos);
+                        oos.writeObject(economy);
                         break;
                     default:
                         throw new RuntimeException("Incorrect class.");
                 }
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(a);
+                System.out.println(p.toString());
                 oos.close();
                 fos.close();
             }catch (IOException ioe) {
                 ioe.printStackTrace();
             }
-        }
     }
+
 
     /**
      * Reads data from saved file.
@@ -122,30 +142,39 @@ public class Storage {
             String path = homeDir + File.separator + "TIMO_savedData" + File.separator;
             FileInputStream fis;
             ObjectInputStream ois;
+            Path p;
+
             switch (shippingClass) {
-                case 1:
-                    fis = new FileInputStream(path + "priority");
+                case 1:{
+                    p =  Paths.get(System.getProperty("user.home"),"TIMO_savedStorageData", "priority");
+                    fis = new FileInputStream(p.toString());
                     ois = new ObjectInputStream(fis);
                     priority = (ArrayList) ois.readObject();
                     System.out.println("Previous data was loaded for first class.");
-                    break;
-                case 2:
-                    fis = new FileInputStream(path + "standard");
+                    ois.close();
+                    fis.close();
+                    break;}
+                case 2:{
+                    p = Paths.get(System.getProperty("user.home"),"TIMO_savedStorageData", "standard");
+                    fis = new FileInputStream(p.toString());
                     ois = new ObjectInputStream(fis);
                     standard = (ArrayList) ois.readObject();
                     System.out.println("Previous data was loaded for second class.");
-                    break;
-                case 3:
-                    fis = new FileInputStream(path + "economy");
+                    ois.close();
+                    fis.close();
+                    break;}
+                case 3:{
+                    p = Paths.get(System.getProperty("user.home"),"TIMO_savedStorageData", "economy");
+                    fis = new FileInputStream(p.toString());
                     ois = new ObjectInputStream(fis);
                     economy = (ArrayList) ois.readObject();
                     System.out.println("Previous data was loaded for third class.");
-                    break;
+                    ois.close();
+                    fis.close();
+                    break;}
                 default:
-                    throw new RuntimeException("Incorrect class.");
+                    //throw new RuntimeException("Incorrect class.");
             }
-            ois.close();
-            fis.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         } catch (ClassNotFoundException cnf) {
