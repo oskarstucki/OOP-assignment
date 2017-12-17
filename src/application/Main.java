@@ -31,6 +31,7 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 		Storage STORAGE = getStorage();
+		System.out.println("Saving data...");
 		STORAGE.saveStorageState(1);
 		STORAGE.saveStorageState(2);
 		STORAGE.saveStorageState(3);

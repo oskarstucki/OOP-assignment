@@ -133,6 +133,8 @@ public class testController {
                     }
                 }
 
+                System.out.println("Warehouse contains:");
+                warehouse.printPackages();
             }
         });
     }

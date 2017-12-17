@@ -2,6 +2,7 @@ package parcel_system;
 
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public abstract class Parcel implements Serializable{
 
@@ -9,7 +10,7 @@ public abstract class Parcel implements Serializable{
     private static int count = 0;
 
     /* Each parcel must be identifiable. */
-    private final int id;
+    private final String ID;
 
     /* Is content fragile? */
     protected int fragile = 0;
@@ -26,6 +27,12 @@ public abstract class Parcel implements Serializable{
     /* String content */
     private final String content;
 
+    /* Destination and source */
+    private String destination;
+    private String source;
+
+
+
     /**
      * Default constructor
      */
@@ -34,11 +41,22 @@ public abstract class Parcel implements Serializable{
         this.length = length;
         this.depth = depth;
         this.weight = weight;
-        this.id = ++count;
         this.fragile = fragile;
         this.content = content;
 
+        ID = createID();
+
     }
+
+    private String createID(){
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
+    }
+
+    public String getID(){
+        return this.ID;
+    }
+
 
     /**
      * @return height
@@ -96,9 +114,6 @@ public abstract class Parcel implements Serializable{
         this.weight = weight;
     }
 
-    public int getId() {
-        return this.id;
-    }
 
     /**
      * @return fragile
@@ -121,6 +136,23 @@ public abstract class Parcel implements Serializable{
      */
     public String getContent(){
         return this.content;
+    }
+
+
+    public void setDestination(String destination){
+        this.destination = destination;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setSource(String source){
+        this.source = source;
+    }
+
+    public java.lang.String getSource() {
+        return source;
     }
 
 

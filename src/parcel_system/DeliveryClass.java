@@ -1,5 +1,7 @@
 package parcel_system;
 
+import javafx.scene.control.Alert;
+
 import java.io.Serializable;
 
 public abstract class DeliveryClass extends Parcel implements Serializable {
@@ -23,13 +25,16 @@ public abstract class DeliveryClass extends Parcel implements Serializable {
 
 
 
-    protected double heightLimit; // cm
-    protected double lengthLimit; // cm
-    protected double depthLimit;  // cm
-    protected double weightLimit; // KG
+    private double heightLimit; // cm
+    private double lengthLimit; // cm
+    private double depthLimit;  // cm
+    private double weightLimit; // KG
 
     public abstract int getMaxDistance();
     public abstract int getWillBreak();
+
+    private double distance;
+
 
     /**
      * @param weightLimit
@@ -90,6 +95,21 @@ public abstract class DeliveryClass extends Parcel implements Serializable {
     }
 
 
+    public void setDistance(double distance){
+        if (distance < this.getMaxDistance()) {
+            this.distance = distance;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varoitus!");
+            alert.setHeaderText("Väärä pakettiluokka");
+            alert.setContentText("Pakettiautomaattien välinen matka on liian suuri valitulle pakettiluokalle");
+            alert.showAndWait();
+        }
+    }
+
+    public double getDistance() {
+        return distance;
+    }
 
 
 }

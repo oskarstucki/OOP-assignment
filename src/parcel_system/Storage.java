@@ -17,6 +17,7 @@ public class Storage {
     private static ArrayList<FirstClass> priority = new ArrayList<>();
     private static ArrayList<SecondClass> standard = new ArrayList<>();
     private static ArrayList<ThirdClass> economy = new ArrayList<>();
+
     /**
      * Private constructor for singleton
      */
@@ -195,6 +196,34 @@ public class Storage {
     public static ArrayList<ThirdClass> getEconomy() {
         return economy;
     }
+
+    public void printPackages(){
+        for (FirstClass parcel: priority) {
+            System.out.println(parcel.getID() + " : " + parcel.getContent());
+        }
+        for (SecondClass parcel: standard) {
+            System.out.println(parcel.getID() + " : " + parcel.getContent());
+        }
+        for (ThirdClass parcel: economy) {
+            System.out.println(parcel.getID() + " : " + parcel.getContent());
+        }
+    }
+
+    public ArrayList<DeliveryClass> extractPackages(){
+        ArrayList<DeliveryClass> al = new ArrayList<>();
+        for (FirstClass parcel: priority) {
+            al.add(parcel);
+        }
+        for (SecondClass parcel: standard) {
+            al.add(parcel);
+        }
+        for (ThirdClass parcel: economy) {
+            al.add(parcel);
+        }
+
+        return al;
+    }
+
 
     /**
      *
