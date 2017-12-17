@@ -56,6 +56,9 @@ public class testController {
     @FXML
     private Button emptyMapButton;
 
+    @FXML
+    private CheckBox fragile;
+
 
 
     /**
@@ -223,7 +226,7 @@ public class testController {
         Item i = new Item(Double.parseDouble(newThingHeight.getText()),
                 Double.parseDouble(newThingLength.getText()),
                 Double.parseDouble(newThingWidth.getText()),
-                Double.parseDouble(newThingWeight.getText()),1,
+                Double.parseDouble(newThingWeight.getText()), fragile.isSelected() ? 1:0,
                 newThingName.getText());
         itemsArray.add(i);
     }
