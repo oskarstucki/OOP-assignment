@@ -31,19 +31,25 @@ public class testController {
     @FXML
     private Button addSmartPost;
     @FXML
+    private Button addItem;
+    @FXML
     private ComboBox<String> ListOfPacketClasses;
     @FXML
     private ComboBox<String> listOfItems;
     @FXML
-    private ComboBox<String> senderPost;
+    private ComboBox<SmartPost> senderPost;
     @FXML
-    private ComboBox<String> ReceivePost;
+    private ComboBox<SmartPost> ReceivePost;
     @FXML
     private TextField newThingName;
     @FXML
     private TextField newThingWeight;
     @FXML
-    private TextField newThingSize;
+    private TextField newThingLength;
+    @FXML
+    private TextField newThingHeight;
+    @FXML
+    private TextField newThingWidth;
     @FXML
     private Button emptyMapButton;
 
@@ -127,15 +133,17 @@ public class testController {
 
 
     @FXML public void initialize() {
-        /*mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
+        mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
 
         ArrayList<SmartPost> cities = db.returnCities();
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
+        senderPost.setItems(this.posts);
+        ReceivePost.setItems(this.posts);
+
         setDeliveryClasses();
         fillDefaultItems();
         initSendButton();
-*/
 
 
     }
@@ -153,24 +161,24 @@ public class testController {
     }
 
 
-    public void AddNewItem(ArrayList<String> information ){
-        if(!isDouble(information.get(1))){
+    @FXML public void AddNewItem(ActionEvent event ){
+        if(!isDouble(newThingHeight.getText())){
             alert("Korkeuden tulee olla numero");
         }
-        else if(!isDouble(information.get(2))){
+        else if(!isDouble(newThingLength.getText())){
             alert("Pituuden tulee olla numero");
         }
-        else if(!isDouble(information.get(3))){
+        else if(!isDouble(newThingWidth.getText())){
             alert("Leveyden tulee olla numero");
         }
-        else if(!isDouble(information.get(4))){
+        else if(!isDouble(newThingWeight.getText())){
             alert("Painon tulee olla numero");
         }else{
-            di.AddnewItem(Double.parseDouble(information.get(1)),
-                    Double.parseDouble(information.get(2)),
-                    Double.parseDouble(information.get(3)),
-                    Double.parseDouble(information.get(4)),
-                    information.get(0)
+            di.AddnewItem(Double.parseDouble(newThingHeight.getText()),
+                    Double.parseDouble(newThingLength.getText()),
+                    Double.parseDouble(newThingWidth.getText()),
+                    Double.parseDouble(newThingWeight.getText()),
+                    newThingName.getText()
             );
             fillDefaultItems();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

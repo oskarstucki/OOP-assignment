@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.testController">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.testController">
   <children>
       <TabPane prefHeight="605.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -18,7 +18,7 @@
             <content>
               <AnchorPane>
                      <children>
-                      <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="-149.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="0.0">
+                      <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="570.0" prefWidth="902.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                         <items>
                           <AnchorPane prefHeight="714.0" prefWidth="203.0">
                             <children>
@@ -46,7 +46,7 @@
                               </AnchorPane>
                             </content>
                           </ScrollPane>
-                          <AnchorPane prefHeight="714.0" prefWidth="589.0">
+                          <AnchorPane>
                             <children>
                               <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Paketti" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                                     <ComboBox fx:id="listOfItems" layoutX="29.0" layoutY="56.0" prefWidth="150.0" promptText="Valmiit esineet" />
