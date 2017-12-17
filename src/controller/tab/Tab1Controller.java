@@ -1,5 +1,6 @@
 package controller.tab;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,8 +49,7 @@ public class Tab1Controller {
     private ChoiceBox<String> listOfItems;
     @FXML
     private Button emptyMapButton;
-    @FXML
-    private Button addItemButton;
+
 
 
     /**
@@ -153,23 +153,60 @@ public class Tab1Controller {
 
     }
 
-    @FXML private void addItem(ActionEvent event){
 
-    }
     public void AddNewItem(ArrayList<String> information ){
-        di.AddnewItem(Double.parseDouble(information.get(1)),
-                Double.parseDouble(information.get(2)),
-                Double.parseDouble(information.get(3)),
-                Double.parseDouble(information.get(4)),
-                information.get(0)
-                );
-        fillDefaultItems();
+        if(!isDouble(information.get(1))){
+            alert("Korkeuden tulee olla numero");
+        }
+        else if(!isDouble(information.get(2))){
+            alert("Pituuden tulee olla numero");
+        }
+        else if(!isDouble(information.get(3))){
+            alert("Leveyden tulee olla numero");
+        }
+        else if(!isDouble(information.get(4))){
+            alert("Painon tulee olla numero");
+        }else{
+            di.AddnewItem(Double.parseDouble(information.get(1)),
+                    Double.parseDouble(information.get(2)),
+                    Double.parseDouble(information.get(3)),
+                    Double.parseDouble(information.get(4)),
+                    information.get(0)
+            );
+            fillDefaultItems();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Tuote lisätty");
+            alert.setHeaderText(null);
+            alert.setContentText("Uusi tuote lisätty onnistuneesti!");
+            alert.showAndWait();
+
+        }
+
 
 
     }
 
+    public boolean isDouble( String str ){
+        try{
+            Double.parseDouble( str );
+            return true;
+        }
+        catch( Exception e ){
+            return false;
+        }
+    }
 
-	public void init(MainController mainController) {
+    public void alert(String allerter){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Varoitus");
+        alert.setHeaderText(null);
+        alert.setContentText(allerter);
+        alert.showAndWait();
+    }
+
+
+
+    public void init(MainController mainController) {
 		main = mainController;
 	}
 }

@@ -9,15 +9,15 @@
    <children>
       <TabPane prefHeight="492.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-            <Tab closable="false" text="Kartta">
+            <Tab fx:id="MapTab" closable="false" text="Kartta">
                 <content>
                     <fx:include fx:id="tab1" source="tab/Tab1.fxml" />
                 </content></Tab>
-          <Tab closable="false" text="Loki">
+          <Tab fx:id="logTab" closable="false" text="Loki">
                <content>
                   <fx:include fx:id="tab2" source="tab/Tab2.fxml" />
                </content></Tab>
-            <Tab closable="false" text="Lisää asia">
+            <Tab fx:id="AddThingTab" closable="false" text="Lisää asia">
                 <content>
                     <fx:include fx:id="tab3" source="tab/Tab3.fxml" />
                 </content></Tab>
