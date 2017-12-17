@@ -14,6 +14,7 @@ import stuff.DefaultItems;
 import stuff.Item;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class testController {
     private ObservableList<SmartPost> posts;
@@ -21,6 +22,8 @@ public class testController {
     private ObservableList<String> items;
     private DataBuilder db = new DataBuilder();
     private DefaultItems di = new DefaultItems();
+    Storage warehouse = Storage.getStorage();
+    ArrayList<Item> itemsArray;
 
     @FXML
     private Button sendPacket;
@@ -62,54 +65,80 @@ public class testController {
     @FXML
     private void sendPacket(ActionEvent event) {
 
+    }
 
 
+    private void loadPreviousData(){
+        Alert confirmationScreen = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationScreen.setTitle("Confirmation Screen");
+        confirmationScreen.setHeaderText("Ladataanko aikaisempi varastotilanne");
+        confirmationScreen.setContentText("Voit aloittaa tyhjältä pöydältä tai ladata edellisen varastotilanteen.");
+
+        ButtonType yes = new ButtonType("Kyllä");
+        ButtonType no = new ButtonType("Ei");
+
+        confirmationScreen.getButtonTypes().setAll(yes,no);
+
+        Optional<ButtonType> result = confirmationScreen.showAndWait();
+        if (result.get() == yes) {
+            warehouse.getStoredData(1);
+            warehouse.getStoredData(2);
+            warehouse.getStoredData(3);
+        } else if (result.get() == no) {
+            System.out.println("Previous data was not loaded.");
+            // do not load previous data
+        } else {
+            System.out.println("User closed the first dialog, previous data was not loaded.");
+            //  user closed the dialog, do not load data
+        }
     }
 
     private void initSendButton(){
         sendPacket.setOnAction(new EventHandler<ActionEvent>() {
-                                   @Override
-                                   public void handle(ActionEvent event) {
-                                       System.out.println("Send button pressed.");
-                                       String itemName = listOfItems.getValue();
-                                       int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
-                                       String deliveryClassName = ListOfPacketClasses.getValue();
-                                       int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
-                                       System.out.println(itemName + " sent in class " + deliveryClassName);
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Send button pressed.");
+                String itemName = listOfItems.getValue();
+                int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
+                String deliveryClassName = ListOfPacketClasses.getValue();
+                int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
+                System.out.println(itemName + " sent in class " + deliveryClassName);
 
-                                       DefaultItems di = new DefaultItems();
-                                       ArrayList<Item> diArray = di.getDefaultItems();
-                                       Item item = diArray.get(itemIndex);
-                                       DeliveryClass delivery;
-                                       if (deliveryClassIndex == 1) {
-                                           FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
-                                                   item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                                           delivery = d1;
-                                       } else if (deliveryClassIndex == 2) {
-                                           SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
-                                                   item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                                           delivery = d2;
-                                       }else {
-                                           ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
-                                                   item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                                           delivery = d3;
-                                       }
-                                       DeliveryClassSelector selector = new DeliveryClassSelector();
-                                       boolean value = selector.testDeliveryClass(item,delivery);
+                boolean value;
+                Item item = itemsArray.get(itemIndex);
+                DeliveryClassSelector selector = new DeliveryClassSelector();
+                if (deliveryClassIndex == 0) {
+                    FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
+                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                    value = selector.testDeliveryClass(item,d1);
+                    if (value == true) {
+                        warehouse.AddPackage(d1);
+                    }
+                } else if (deliveryClassIndex == 1) {
+                    SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
+                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                    value = selector.testDeliveryClass(item,d2);
+                    if (value == true){
+                        warehouse.AddPackage(d2);
+                    }
+                }else if (deliveryClassIndex == 2) {
+                    ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
+                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                    value = selector.testDeliveryClass(item,d3);
+                    if (value == true){
+                        warehouse.AddPackage(d3);
+                    }
+                }
 
-                                   }
-
-
-
-
-                               }
-        );
+            }
+        });
     }
 
 
 
 
-    public void setListOfCities(ArrayList<SmartPost> list){
+
+    private void setListOfCities(ArrayList<SmartPost> list){
         posts = FXCollections.observableArrayList(list);
     }
 
@@ -126,9 +155,9 @@ public class testController {
      * Method for filling the choise box with default items.
      */
     private void fillDefaultItems(){
-
         items = FXCollections.observableArrayList(di.getNames());
         listOfItems.setItems(items);
+        itemsArray= di.getDefaultItems();
     }
 
 
@@ -145,6 +174,7 @@ public class testController {
         fillDefaultItems();
         initSendButton();
 
+        loadPreviousData();
 
     }
 
@@ -186,10 +216,16 @@ public class testController {
             alert.setHeaderText(null);
             alert.setContentText("Uusi tuote lisätty onnistuneesti!");
             alert.showAndWait();
-
         }
 
-
+        /* Generates new object of class Item. */
+        // TODO information box for fragile, this method adds two items to list for some reason
+        Item i = new Item(Double.parseDouble(newThingHeight.getText()),
+                Double.parseDouble(newThingLength.getText()),
+                Double.parseDouble(newThingWidth.getText()),
+                Double.parseDouble(newThingWeight.getText()),1,
+                newThingName.getText());
+        itemsArray.add(i);
     }
 
     public boolean isDouble( String str ){
