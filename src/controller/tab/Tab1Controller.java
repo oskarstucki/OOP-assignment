@@ -22,6 +22,7 @@ import stuff.Item;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +35,9 @@ public class Tab1Controller {
     private ObservableList<String> items;
     private DataBuilder db = new DataBuilder();
     private DefaultItems di = new DefaultItems();
+    Storage warehouse = Storage.getStorage();
+    ArrayList<Item> itemsArray;
+
 
     @FXML
     private Button sendPacket;
@@ -51,7 +55,6 @@ public class Tab1Controller {
     private Button emptyMapButton;
 
 
-
     /**
      * Initializes the controller class.
      */
@@ -59,9 +62,35 @@ public class Tab1Controller {
     @FXML
     private void sendPacket(ActionEvent event) {
 
-
-
     }
+
+
+    private void loadPreviousData(){
+        Alert confirmationScreen = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationScreen.setTitle("Confirmation Screen");
+        confirmationScreen.setHeaderText("Ladataanko aikaisempi varastotilanne");
+        confirmationScreen.setContentText("Voit aloittaa tyhjältä pöydältä tai ladata edellisen varastotilanteen.");
+
+        ButtonType yes = new ButtonType("Kyllä");
+        ButtonType no = new ButtonType("Ei");
+
+        confirmationScreen.getButtonTypes().setAll(yes,no);
+
+        Optional<ButtonType> result = confirmationScreen.showAndWait();
+        if (result.get() == yes) {
+            warehouse.getStoredData(1);
+            warehouse.getStoredData(2);
+            warehouse.getStoredData(3);
+        } else if (result.get() == no) {
+            System.out.println("Previous data was not loaded.");
+            // do not load previous data
+        } else {
+            System.out.println("User closed the first dialog, previous data was not loaded.");
+            //  user closed the dialog, do not load data
+        }
+    }
+
+
 
     private void initSendButton(){
         sendPacket.setOnAction(new EventHandler<ActionEvent>() {
@@ -74,33 +103,34 @@ public class Tab1Controller {
                 int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
                 System.out.println(itemName + " sent in class " + deliveryClassName);
 
-                DefaultItems di = new DefaultItems();
-                ArrayList<Item> diArray = di.getDefaultItems();
-                Item item = diArray.get(itemIndex);
-                DeliveryClass delivery;
+                boolean value;
+                Item item = itemsArray.get(itemIndex);
+                DeliveryClassSelector selector = new DeliveryClassSelector();
                 if (deliveryClassIndex == 1) {
                     FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    delivery = d1;
+                    value = selector.testDeliveryClass(item,d1);
+                    if (value == true) {
+                        warehouse.AddPackage(d1);
+                    }
                 } else if (deliveryClassIndex == 2) {
                     SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    delivery = d2;
+                    value = selector.testDeliveryClass(item,d2);
+                    if (value == true){
+                        warehouse.AddPackage(d2);
+                    }
                 }else {
                     ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
                         item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    delivery = d3;
+                    value = selector.testDeliveryClass(item,d3);
+                    if (value == true){
+                        warehouse.AddPackage(d3);
+                    }
                 }
-                DeliveryClassSelector selector = new DeliveryClassSelector();
-                boolean value = selector.testDeliveryClass(item,delivery);
-
-                }
-
-
-
 
             }
-        );
+        });
     }
 
 
@@ -123,16 +153,16 @@ public class Tab1Controller {
      * Method for filling the choise box with default items.
      */
     private void fillDefaultItems(){
-
         items = FXCollections.observableArrayList(di.getNames());
         listOfItems.setItems(items);
+        itemsArray= di.getDefaultItems();
     }
 
 
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
-
         ArrayList<SmartPost> cities = db.returnCities();
+        loadPreviousData();
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
         setDeliveryClasses();
@@ -184,6 +214,15 @@ public class Tab1Controller {
 
         }
 
+        /* Generates new object of class Item. */
+        // TODO information box for fragile, this method adds two items to list for some reason
+        Item i = new Item(Double.parseDouble(information.get(1)),
+                Double.parseDouble(information.get(2)),
+                Double.parseDouble(information.get(3)),
+                Double.parseDouble(information.get(4)),1,
+                information.get(0));
+        itemsArray.add(i);
+        System.out.println(itemsArray.size());
 
     }
 

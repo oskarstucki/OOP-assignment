@@ -1,6 +1,5 @@
 package parcel_system;
 
-import org.omg.CORBA.Object;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -68,12 +67,15 @@ public class Storage {
      */
     public void AddPackage(FirstClass parcel) {
         priority.add(parcel);
+        System.out.println("1st class package containing " + parcel.getContent() + " was added to storage.");
     }
     public void AddPackage(SecondClass parcel) {
         standard.add(parcel);
+        System.out.println("2nd class package containing " + parcel.getContent() + " was added to storage.");
     }
     public void AddPackage(ThirdClass parcel) {
         economy.add(parcel);
+        System.out.println("2nd class package containing " + parcel.getContent() + " was added to storage.");
     }
 
 
@@ -125,16 +127,19 @@ public class Storage {
                     fis = new FileInputStream(path + "priority");
                     ois = new ObjectInputStream(fis);
                     priority = (ArrayList) ois.readObject();
+                    System.out.println("Previous data was loaded for first class.");
                     break;
                 case 2:
                     fis = new FileInputStream(path + "standard");
                     ois = new ObjectInputStream(fis);
                     standard = (ArrayList) ois.readObject();
+                    System.out.println("Previous data was loaded for second class.");
                     break;
                 case 3:
                     fis = new FileInputStream(path + "economy");
                     ois = new ObjectInputStream(fis);
                     economy = (ArrayList) ois.readObject();
+                    System.out.println("Previous data was loaded for third class.");
                     break;
                 default:
                     throw new RuntimeException("Incorrect class.");
@@ -150,6 +155,17 @@ public class Storage {
     }
 
 
+    public static ArrayList<FirstClass> getPriority() {
+        return priority;
+    }
+
+    public static ArrayList<SecondClass> getStandard() {
+        return standard;
+    }
+
+    public static ArrayList<ThirdClass> getEconomy() {
+        return economy;
+    }
 
     /**
      *

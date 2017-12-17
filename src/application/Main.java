@@ -7,8 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import map.DataBuilder;
+import parcel_system.Storage;
 
 import java.util.ArrayList;
+
+import static parcel_system.Storage.getStorage;
 
 
 public class Main extends Application {
@@ -26,7 +29,15 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
+	public void stop() throws Exception {
+		Storage STORAGE = getStorage();
+		STORAGE.saveStorageState(STORAGE.getPriority());
+		STORAGE.saveStorageState(STORAGE.getStandard());
+		STORAGE.saveStorageState(STORAGE.getEconomy());
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
