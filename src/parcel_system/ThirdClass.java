@@ -1,9 +1,10 @@
 package parcel_system;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.time.LocalDate;
 
-public class ThirdClass extends DeliveryClass {
+public class ThirdClass extends DeliveryClass implements Serializable{
 
 
     /**

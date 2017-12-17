@@ -17,7 +17,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 
-			Parent root = FXMLLoader.load(getClass().getResource("/view/ComplexApplication_css.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
 			Scene scene = new Scene(root);
 
 			primaryStage.setScene(scene);
@@ -31,9 +31,9 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 		Storage STORAGE = getStorage();
-		STORAGE.saveStorageState(STORAGE.getPriority());
-		STORAGE.saveStorageState(STORAGE.getStandard());
-		STORAGE.saveStorageState(STORAGE.getEconomy());
+		STORAGE.saveStorageState(1);
+		STORAGE.saveStorageState(2);
+		STORAGE.saveStorageState(3);
 	}
 
 	public static void main(String[] args) {

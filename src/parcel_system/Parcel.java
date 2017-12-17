@@ -1,7 +1,9 @@
 package parcel_system;
 
 
-public abstract class Parcel {
+import java.io.Serializable;
+
+public abstract class Parcel implements Serializable{
 
     /* Number of parcels created.*/
     private static int count = 0;

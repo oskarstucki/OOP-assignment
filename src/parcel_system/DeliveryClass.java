@@ -1,6 +1,8 @@
 package parcel_system;
 
-public abstract class DeliveryClass extends Parcel {
+import java.io.Serializable;
+
+public abstract class DeliveryClass extends Parcel implements Serializable {
 
 
     /**

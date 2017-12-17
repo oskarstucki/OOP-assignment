@@ -102,25 +102,26 @@ public class Tab1Controller {
                 String deliveryClassName = ListOfPacketClasses.getValue();
                 int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
                 System.out.println(itemName + " sent in class " + deliveryClassName);
+                System.out.println(deliveryClassIndex);
 
                 boolean value;
                 Item item = itemsArray.get(itemIndex);
                 DeliveryClassSelector selector = new DeliveryClassSelector();
-                if (deliveryClassIndex == 1) {
+                if (deliveryClassIndex == 0) {
                     FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
                     value = selector.testDeliveryClass(item,d1);
                     if (value == true) {
                         warehouse.AddPackage(d1);
                     }
-                } else if (deliveryClassIndex == 2) {
+                } else if (deliveryClassIndex == 1) {
                     SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
                             item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
                     value = selector.testDeliveryClass(item,d2);
                     if (value == true){
                         warehouse.AddPackage(d2);
                     }
-                }else {
+                }else if (deliveryClassIndex == 2) {
                     ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
                         item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
                     value = selector.testDeliveryClass(item,d3);
@@ -162,14 +163,14 @@ public class Tab1Controller {
     @FXML public void initialize() {
         mapView.getEngine().load(getClass().getResource("index.html").toExternalForm());
         ArrayList<SmartPost> cities = db.returnCities();
-        loadPreviousData();
+
         setListOfCities(cities);
         smartPostLocations.setItems(this.posts);
         setDeliveryClasses();
         fillDefaultItems();
         initSendButton();
 
-
+        loadPreviousData();
 
     }
 
