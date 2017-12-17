@@ -1,8 +1,9 @@
 package map;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 
-public class SmartPost {
+public class SmartPost implements Serializable{
 
 
 

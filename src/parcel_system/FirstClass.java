@@ -10,12 +10,16 @@ public class FirstClass extends DeliveryClass implements Serializable{
      */
     public FirstClass(double height, double length, double depth, double weight, int fragile, String content) {
         super(height,length,depth,weight,fragile,content,10,30, 20, 3);
+        setDeliveryClass("1");
     }
 
     /**
      *  Maximum delivery distance 150 (km)
      */
     private static final int MAX_DISTANCE = 150;
+
+
+
 
     /**
      * @return MAX_DISTANCE

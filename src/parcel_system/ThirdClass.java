@@ -9,17 +9,20 @@ public class ThirdClass extends DeliveryClass implements Serializable{
 
     /**
      * Default constructor
-     * Third class packages can be 60 cm x 185 cm x 120 cm and weight 50 kg.
+     * Third class packages can be 60 cm x 185 cm x 120 cm and weight 80 kg.
      */
     public ThirdClass(double height, double length, double depth, double weight, int fragile, String content) {
-        super(height,length,depth,weight, fragile,content, 60, 185, 120, 50);
+        super(height,length,depth,weight, fragile,content, 60, 185, 120, 80);
         this.didNonFragileBreak();
+        setDeliveryClass("3");
     }
 
     /**
      *  Maximum delivery distance 1500 (km)
      */
     private static final int MAX_DISTANCE = 1500;
+
+    private String DELIVERY_CLASS = "1";
 
     /**
      * All fragile packets will break.

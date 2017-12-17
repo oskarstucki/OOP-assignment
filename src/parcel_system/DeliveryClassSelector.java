@@ -3,7 +3,6 @@ package parcel_system;
 import javafx.scene.control.Alert;
 import stuff.Item;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 

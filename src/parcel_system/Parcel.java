@@ -1,7 +1,7 @@
 package parcel_system;
 
 
-import map.GeopointAdder;
+import javafx.beans.property.SimpleStringProperty;
 import map.SmartPost;
 
 import java.io.Serializable;
@@ -14,6 +14,7 @@ public abstract class Parcel implements Serializable{
 
     /* Each parcel must be identifiable. */
     private final String ID;
+
 
     /* Is content fragile? */
     protected int fragile = 0;
@@ -37,7 +38,8 @@ public abstract class Parcel implements Serializable{
     private double[] sourceCoordinates = new double[2];
     private double[] destinationCoordinates = new double[2];
 
-
+    private  String sendingPostOffice;
+    private  String recievingPostOffice;
 
 
     /**
@@ -53,6 +55,7 @@ public abstract class Parcel implements Serializable{
 
         ID = createID();
 
+
     }
 
     private String createID(){
@@ -61,7 +64,7 @@ public abstract class Parcel implements Serializable{
     }
 
     public String getID(){
-        return this.ID;
+        return ID;
     }
 
 
@@ -148,6 +151,7 @@ public abstract class Parcel implements Serializable{
 
     public void setDestination(SmartPost destination){
         this.destination = destination;
+        this.recievingPostOffice = this.destination.getCity() + " " + this.destination.getPostOffice();
     }
 
     public SmartPost getDestination() {
@@ -156,6 +160,15 @@ public abstract class Parcel implements Serializable{
 
     public void setSource(SmartPost source){
         this.source = source;
+        this.sendingPostOffice = this.source.getCity() + " " + this.source.getPostOffice();
+    }
+
+    public String getSendingPostOffice() {
+        return sendingPostOffice;
+    }
+
+    public String getRecievingPostOffice() {
+        return recievingPostOffice;
     }
 
     public SmartPost getSource() {

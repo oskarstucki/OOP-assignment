@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public abstract class DeliveryClass extends Parcel implements Serializable {
 
+    private String deliveryClass;
+
 
     /**
      * Default constructor
@@ -111,5 +113,11 @@ public abstract class DeliveryClass extends Parcel implements Serializable {
         return distance;
     }
 
+    protected void setDeliveryClass(String deliveryClass){
+        this.deliveryClass = deliveryClass;
+    }
 
+    public String getDeliveryClass() {
+        return deliveryClass;
+    }
 }

@@ -10,13 +10,15 @@ public class SecondClass extends DeliveryClass implements Serializable {
      */
     public SecondClass(double height, double length, double depth, double weight, int fragile, String content) {
         super(height,length,depth,weight, fragile, content,5, 30, 20, 2);
-
+        setDeliveryClass("2");
     }
 
     /**
      *  Maximum delivery distance 1500 (km)
      */
     private static final int MAX_DISTANCE = 1500;
+
+    private String DELIVERY_CLASS = "2";
 
     /**
      * All fragile packets will not break.

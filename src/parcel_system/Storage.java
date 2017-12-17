@@ -199,13 +199,16 @@ public class Storage {
 
     public void printPackages(){
         for (FirstClass parcel: priority) {
-            System.out.println(parcel.getID() + " : " + parcel.getContent());
+            System.out.println(parcel.getID() + " : " + parcel.getContent() + " : "
+                    + parcel.getDestination().getCity());
         }
         for (SecondClass parcel: standard) {
-            System.out.println(parcel.getID() + " : " + parcel.getContent());
+            System.out.println(parcel.getID() + " : " + parcel.getContent() + " : "
+                    + parcel.getDestination().getCity());
         }
         for (ThirdClass parcel: economy) {
-            System.out.println(parcel.getID() + " : " + parcel.getContent());
+            System.out.println(parcel.getID() + " : " + parcel.getContent()+  " : "
+                    + parcel.getDestination().getCity());
         }
     }
 

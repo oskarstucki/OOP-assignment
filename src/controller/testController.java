@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 import map.DataBuilder;
 import map.SmartPost;
@@ -24,6 +25,7 @@ public class testController {
     private DefaultItems di = new DefaultItems();
     Storage warehouse = Storage.getStorage();
     ArrayList<Item> itemsArray;
+    ArrayList<DeliveryClass> storedPackages;
 
     @FXML
     private Button sendPacket;
@@ -59,6 +61,7 @@ public class testController {
     @FXML
     private CheckBox fragile;
 
+    @FXML private TableView<DeliveryClass> storageTable;
 
 
     /**
@@ -148,12 +151,49 @@ public class testController {
 
                 System.out.println("Warehouse contains:");
                 warehouse.printPackages();
+                updateStorageTable();
             }
         });
     }
 
+    private void updateStorageTable(){
+        storedPackages = warehouse.extractPackages();
+        final ObservableList<DeliveryClass> data = FXCollections.observableArrayList(storedPackages);
+        storageTable.setItems(data);
+    }
 
 
+
+    private void initStorageTable(){
+        storageTable.setEditable(false);
+        TableColumn id = new TableColumn("id");
+        TableColumn content = new TableColumn("Sisältö");
+        TableColumn deliveryClass = new TableColumn("Luokka");
+        TableColumn posts = new TableColumn("SmartPost automaatit");
+        TableColumn source = new TableColumn("Lähettäjä");
+        TableColumn destination = new TableColumn("Vastaanottaja");
+
+
+        storedPackages = warehouse.extractPackages();
+
+        final ObservableList<DeliveryClass> data = FXCollections.observableArrayList(storedPackages);
+
+        id.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("ID"));
+        id.setMinWidth(230);
+        content.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("Content"));
+        content.setMinWidth(140);
+        deliveryClass.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("deliveryClass"));
+        deliveryClass.setMinWidth(10);
+        deliveryClass.setStyle("-fx-alignment: CENTER;");
+        source.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("sendingPostOffice"));
+        destination.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("recievingPostOffice"));
+
+        storageTable.setItems(data);
+
+        storageTable.getColumns().addAll(id,content,deliveryClass,posts);
+        posts.getColumns().addAll(source, destination);
+
+    }
 
 
     private void setListOfCities(ArrayList<SmartPost> list){
@@ -193,6 +233,8 @@ public class testController {
         initSendButton();
 
         loadPreviousData();
+
+        initStorageTable();
 
     }
 
