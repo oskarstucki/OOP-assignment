@@ -1,5 +1,6 @@
 package controller;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,14 +9,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import map.DataBuilder;
 import map.SmartPost;
 import parcel_system.*;
 import stuff.DefaultItems;
 import stuff.Item;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class testController {
     private ObservableList<SmartPost> posts;
@@ -26,6 +31,8 @@ public class testController {
     Storage warehouse = Storage.getStorage();
     ArrayList<Item> itemsArray;
     ArrayList<DeliveryClass> storedPackages;
+
+    private ObservableList<String> logMessages;
 
     @FXML
     private Button sendPacket;
@@ -64,6 +71,74 @@ public class testController {
     @FXML private TableView<DeliveryClass> storageTable;
 
 
+    @FXML private Button saveLogToFile;
+
+
+    @FXML private Button cleanLog;
+
+    @FXML private ListView<String> log;
+
+
+    private void initListView(){
+        log.setEditable(false);
+        logMessages = FXCollections.observableArrayList();
+        Date date = new Date();
+        logMessages.add(date.toString() + "\t" + "Istunto aloitettu");
+        log.setItems(logMessages);
+    }
+
+    private void addMessageToLog(String message){
+        Date date = new Date();
+        logMessages.add(date.toString() + "\t" + message);
+        log.setItems(logMessages);
+    }
+
+
+
+    @FXML private void handleCleanLogButtonAction(ActionEvent e){
+        initListView();
+    }
+
+
+    @FXML private void handleSaveLogAsButtonAction(ActionEvent event){
+        FileChooser fileChooser = new FileChooser();
+
+        // Extension filter
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
+                "TXT files (*.txt", "*.txt");
+        fileChooser.getExtensionFilters().add(extensionFilter);
+
+        // Show save file dialog
+        File saveFile = fileChooser.showSaveDialog(Main.getPrimaryStage());
+
+        if(saveFile != null){
+            saveLog(saveFile);
+        }
+
+    }
+
+
+    /**
+     * Utility function to save log.
+     * @param file target File object
+     */
+    private void saveLog(File file){
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream, "utf-8");
+            for (String s : logMessages) {
+                writer.write(s + "\n");
+            }
+            writer.close();
+            fileOutputStream.close();
+        }catch (IOException ioe){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Tiedostoon kirjoittaminen epäonnistui.");
+            alert.setContentText("Tarkista, onko sinulla kirjoitusoikeus kyseiseen tiedostoon.");
+        }
+    }
+
+
     /**
      * Initializes the controller class.
      */
@@ -99,54 +174,73 @@ public class testController {
         }
     }
 
+    /**
+     * Initializes send button functionality.
+     */
     private void initSendButton(){
         sendPacket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Send button pressed.");
-                String itemName = listOfItems.getValue();
-                int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
-                String deliveryClassName = ListOfPacketClasses.getValue();
-                int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
-                System.out.println(itemName + " sent in class " + deliveryClassName);
+                try {
+                    String itemName = listOfItems.getValue();
+                    int itemIndex = listOfItems.getSelectionModel().selectedIndexProperty().getValue();
+                    String deliveryClassName = ListOfPacketClasses.getValue();
+                    int deliveryClassIndex = ListOfPacketClasses.getSelectionModel().selectedIndexProperty().getValue();
+                    System.out.println(itemName + " sent in class " + deliveryClassName);
 
-                SmartPost source;
-                SmartPost destination;
-                source = db.searchCity(senderPost.getValue().getAddress(),
-                        senderPost.getValue().getPostCode());
-                destination = db.searchCity(receiverPost.getValue().getAddress(),
-                        receiverPost.getValue().getPostCode());
+                    SmartPost source;
+                    SmartPost destination;
+                    source = db.searchCity(senderPost.getValue().getAddress(),
+                            senderPost.getValue().getPostCode());
+                    destination = db.searchCity(receiverPost.getValue().getAddress(),
+                            receiverPost.getValue().getPostCode());
 
-                boolean value;
-                Item item = itemsArray.get(itemIndex);
-                DeliveryClassSelector selector = new DeliveryClassSelector();
-                if (deliveryClassIndex == 0) {
-                    FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
-                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    value = selector.testDeliveryClass(item,d1);
-                    if (value == true) {
-                        d1.setDestination(destination);
-                        d1.setSource(source);
-                        warehouse.AddPackage(d1);
+                    boolean value;
+                    Item item = itemsArray.get(itemIndex);
+                    DeliveryClassSelector selector = new DeliveryClassSelector();
+                    if (deliveryClassIndex == 0) {
+                        FirstClass d1 = new FirstClass(item.getHeight(), item.getLength(),
+                                item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                        value = selector.testDeliveryClass(item, d1);
+                        if (value == true) {
+                            d1.setDestination(destination);
+                            d1.setSource(source);
+                            warehouse.AddPackage(d1);
+                            addMessageToLog("1. luokan paketti " + d1.getContent() + " lähetetty välillä "
+                                    + d1.getSource().getCity() + "-" + d1.getDestination().getCity());
+                        }
+                    } else if (deliveryClassIndex == 1) {
+                        SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
+                                item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                        value = selector.testDeliveryClass(item, d2);
+                        if (value == true) {
+                            d2.setDestination(destination);
+                            d2.setSource(source);
+                            warehouse.AddPackage(d2);
+                            addMessageToLog("2. luokan paketti " + d2.getContent() + " lähetetty välillä "
+                                    + d2.getSource().getCity() + "-" + d2.getDestination().getCity());
+                        }
+                    } else if (deliveryClassIndex == 2) {
+                        ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
+                                item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
+                        value = selector.testDeliveryClass(item, d3);
+                        if (value == true) {
+                            d3.setDestination(destination);
+                            d3.setSource(source);
+                            warehouse.AddPackage(d3);
+                            addMessageToLog("3. luokan paketti " + d3.getContent() + " lähetetty välillä "
+                                    + d3.getSource().getCity() + "-" + d3.getDestination().getCity());
+                        }
                     }
-                } else if (deliveryClassIndex == 1) {
-                    SecondClass d2 = new SecondClass(item.getHeight(), item.getLength(),
-                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    value = selector.testDeliveryClass(item,d2);
-                    if (value == true){
-                        d2.setDestination(destination);
-                        d2.setSource(source);
-                        warehouse.AddPackage(d2);
-                    }
-                }else if (deliveryClassIndex == 2) {
-                    ThirdClass d3 = new ThirdClass(item.getHeight(), item.getLength(),
-                            item.getDepth(), item.getWeight(), item.isFragile(), item.getContent());
-                    value = selector.testDeliveryClass(item,d3);
-                    if (value == true){
-                        d3.setDestination(destination);
-                        d3.setSource(source);
-                        warehouse.AddPackage(d3);
-                    }
+                } catch (NullPointerException ne){
+                    System.out.println("Send button pressed with null values in some fields.");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText("Tarkista paketin tiedot uudestaan");
+                    alert.setContentText("Lähetä -nappulaa painettiin ilman, että kaikki tiedot oli täytetty. " +
+                            "Täytä puuttuvat tiedot ensin.");
+                    alert.showAndWait();
+                    //ne.printStackTrace();
                 }
 
                 System.out.println("Warehouse contains:");
@@ -156,6 +250,9 @@ public class testController {
         });
     }
 
+    /**
+     * Used to update storage table when new packages are sent
+     */
     private void updateStorageTable(){
         storedPackages = warehouse.extractPackages();
         final ObservableList<DeliveryClass> data = FXCollections.observableArrayList(storedPackages);
@@ -163,7 +260,9 @@ public class testController {
     }
 
 
-
+    /**
+     * Initiates storage table on tab 3.
+     */
     private void initStorageTable(){
         storageTable.setEditable(false);
         TableColumn id = new TableColumn("id");
@@ -186,7 +285,9 @@ public class testController {
         deliveryClass.setMinWidth(10);
         deliveryClass.setStyle("-fx-alignment: CENTER;");
         source.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("sendingPostOffice"));
+        source.setMinWidth(250);
         destination.setCellValueFactory(new PropertyValueFactory<DeliveryClass, String>("recievingPostOffice"));
+        destination.setMinWidth(250);
 
         storageTable.setItems(data);
 
@@ -233,8 +334,10 @@ public class testController {
         initSendButton();
 
         loadPreviousData();
-
+        initListView();
         initStorageTable();
+
+
 
     }
 

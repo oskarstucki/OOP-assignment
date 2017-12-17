@@ -12,11 +12,14 @@ import static parcel_system.Storage.getStorage;
 
 public class Main extends Application {
 
+    private static Stage pStage;
+
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 
+		    setPrimaryStage(primaryStage);
 			Parent root = FXMLLoader.load(getClass().getResource("/view/ComplexApplication_css.fxml"));
 			Scene scene = new Scene(root);
 
@@ -40,4 +43,13 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	private void setPrimaryStage(Stage pStage){
+	    Main.pStage = pStage;
+    }
+
+    public static Stage getPrimaryStage(){
+	    return pStage;
+    }
+
 }

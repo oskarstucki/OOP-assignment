@@ -15,11 +15,21 @@ public class DefaultItems {
         Item frisbee = new Item(3, 20, 20, 0.3, 0, "Frisbee");
         Item mug = new Item(7, 12, 7, 0.2, 1, "Iittala Taika-muki");
         Item fridge = new Item(60, 180, 67, 63, 1,"Electrolux jääkaappi");
+        Item jellyjortikka = new Item(19.5, 5,5,0.2,0,"Jellyjortikka");
+        Item boardgame = new Item(25,35, 3.5, 0.3, 0, "Afrikantähti");
+        Item ps4 = new Item(47,38,12,4.96,0,"Playstation 4 Pro");
+        Item videocard = new Item(45,30,14,2.38,1,"GeForce GTX 1080 Ti");
+        Item dogtoy = new Item(35,5,7,0.3,0,"Star Wars Chewbacca -koiranlelu");
 
         items.add(dvd);
         items.add(frisbee);
         items.add(mug);
         items.add(fridge);
+        items.add(jellyjortikka);
+        items.add(boardgame);
+        items.add(ps4);
+        items.add(videocard);
+        items.add(dogtoy);
         return items;
     }
 
