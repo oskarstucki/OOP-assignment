@@ -15,12 +15,15 @@ public class Main extends Application {
     private static Stage pStage;
 
 
+    /**
+    *Gui is started here and the FXML file is loaded
+    */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 
 		    setPrimaryStage(primaryStage);
-			Parent root = FXMLLoader.load(getClass().getResource("/view/ComplexApplication_css.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/InterfaceFXML.fxml"));
 			Scene scene = new Scene(root);
 
 			primaryStage.setScene(scene);
@@ -31,7 +34,15 @@ public class Main extends Application {
 		}
 	}
 
-	@Override
+
+	/**When the program is stoped storage data is saved
+	 *
+	 * @throws Exception
+	 * if data cannot be saved
+	 */
+
+
+	 @Override
 	public void stop() throws Exception {
 		Storage STORAGE = getStorage();
 		System.out.println("Saving data...");
@@ -40,13 +51,21 @@ public class Main extends Application {
 		STORAGE.saveStorageState(3);
 	}
 
+	/**main class where the program is launched
+	 *
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+
+	/**primaryStage is set
+	 *
+	 */
 	private void setPrimaryStage(Stage pStage){
 	    Main.pStage = pStage;
     }
+
 
     public static Stage getPrimaryStage(){
 	    return pStage;

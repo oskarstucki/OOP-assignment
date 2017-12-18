@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class FirstClass extends DeliveryClass implements Serializable{
 
     /**
-     * Default constructor
+     * Default constructor#
      * First class packages can be 10 cm x 30 cm x 20 cm and weight 3 kg.
      */
     public FirstClass(double height, double length, double depth, double weight, int fragile, String content) {

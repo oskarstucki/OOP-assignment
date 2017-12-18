@@ -1,0 +1,36 @@
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: linear-gradient(to right, #ecf4fa 0%, #ced4d9 100%);
+    -fx-padding: 0 3 0 3;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0, 0;
+    -fx-padding: 0;
+}
+.split-pane{
+    -fx-background-image: url("pictures/winter.jpg");
+}
+
+#mapView{
+    -fx-background-image: url("pictures/winter.jpg");
+}
+
+.label{
+    -fx-text-fill: black;
+}
+
+.text-field{
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.combo-box{
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.button {
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}

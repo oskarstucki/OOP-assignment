@@ -1,4 +1,4 @@
-package controller.tab;
+/**package controller.tab;
 
 import application.Main;
 import javafx.collections.FXCollections;
@@ -58,7 +58,7 @@ public class Tab1Controller {
     /**
      * Initializes the controller class.
      */
-
+/**
     @FXML
     private void sendPacket(ActionEvent event) {
 
@@ -144,6 +144,7 @@ public class Tab1Controller {
     /**
      * Method for filling choise box ListOfPacketClasses.
      */
+/**
     private void setDeliveryClasses(){
         delivery_classes = FXCollections.observableArrayList(
                 "1. Luokka", "2. Luokka", "3. Luokka");
@@ -153,6 +154,7 @@ public class Tab1Controller {
     /**
      * Method for filling the choise box with default items.
      */
+/**
     private void fillDefaultItems(){
         items = FXCollections.observableArrayList(di.getNames());
         listOfItems.setItems(items);
@@ -216,6 +218,7 @@ public class Tab1Controller {
         }
 
         /* Generates new object of class Item. */
+/**
         // TODO information box for fragile, this method adds two items to list for some reason
         Item i = new Item(Double.parseDouble(information.get(1)),
                 Double.parseDouble(information.get(2)),
@@ -251,3 +254,4 @@ public class Tab1Controller {
 		main = mainController;
 	}
 }
+**/

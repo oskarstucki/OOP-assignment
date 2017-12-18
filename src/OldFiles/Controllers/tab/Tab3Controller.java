@@ -1,4 +1,4 @@
-package controller.tab;
+/*package controller.tab;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ public class Tab3Controller implements Initializable {
     /**
      * Initializes the controller class.
      */
+/*
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -57,3 +58,4 @@ public class Tab3Controller implements Initializable {
     }
 }
 
+*/

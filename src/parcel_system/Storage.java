@@ -84,6 +84,8 @@ public class Storage {
 
     /**
      * Writes the content of Storage to a file.
+     * The file is stored in users home directory in TIMO_savedStorageData directory
+     * in three different files sorted between packet classes
      * @param shippingClass int of shipping class
      */
     public void saveStorageState(int shippingClass){
@@ -135,6 +137,8 @@ public class Storage {
 
     /**
      * Reads data from saved file.
+     * Data is read from users home directory from directory TIMO_savedStorageData
+     * Three files are read. The information is divided between send classes
      * @param shippingClass 1st, 2nd or 3rd
      */
     public void getStoredData(int shippingClass){
@@ -197,6 +201,11 @@ public class Storage {
         return economy;
     }
 
+
+    /**
+     * Prints out packages that are in Storage to commandline
+     *
+     */
     public void printPackages(){
         for (FirstClass parcel: priority) {
             System.out.println(parcel.getID() + " : " + parcel.getContent() + " : "
@@ -212,6 +221,11 @@ public class Storage {
         }
     }
 
+
+    /***
+     * A list of packages in storage is formed and returned as
+     * arraylist<DeliveryClass>
+     */
     public ArrayList<DeliveryClass> extractPackages(){
         ArrayList<DeliveryClass> al = new ArrayList<>();
         for (FirstClass parcel: priority) {
@@ -227,13 +241,6 @@ public class Storage {
         return al;
     }
 
-
-    /**
-     *
-     */
-    public void SendPackage() {
-        // TODO implement here
-    }
 
 }
 

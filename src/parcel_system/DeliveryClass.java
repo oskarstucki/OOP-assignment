@@ -97,6 +97,10 @@ public abstract class DeliveryClass extends Parcel implements Serializable {
     }
 
 
+    /**
+     * allerts if the distance for chosen postclass is too large
+     * @param distance
+     */
     public void setDistance(double distance){
         if (distance < this.getMaxDistance()) {
             this.distance = distance;

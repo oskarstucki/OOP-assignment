@@ -1,4 +1,4 @@
-package controller;
+/*package controller;
 
 import javafx.fxml.FXML;
 import controller.tab.Tab1Controller;
@@ -40,4 +40,4 @@ public class MainController {
 	}
 
 
-}
+}*/

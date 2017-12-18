@@ -10,6 +10,11 @@ public class DefaultItems {
         createItems();
     }
 
+    /**
+     * Creates a couple default items for the user to choose from
+     * @return
+     */
+
     private ArrayList<Item> createItems(){
         Item dvd = new Item(1.5,19, 13.5,0.1, 0,"Autot 2 DVD");
         Item frisbee = new Item(3, 20, 20, 0.3, 0, "Frisbee");
@@ -45,6 +50,15 @@ public class DefaultItems {
         return contents;
     }
 
+    /**
+     * Possible to add a new item for which is randomly decided weather it is fragile or not
+     *
+     * @param height
+     * @param length
+     * @param depth
+     * @param weight
+     * @param content
+     */
     public void AddnewItem(double height, double length, double depth, double weight, String content){
         double fragile = Math.random();
         if (fragile > 0.49){

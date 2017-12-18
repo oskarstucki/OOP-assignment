@@ -1,4 +1,4 @@
-package controller.tab;
+/*package controller.tab;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,3 +27,4 @@ public class Tab2Controller {
 		main = mainController;
 	}
 }
+*/
