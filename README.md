@@ -1,4 +1,4 @@
-# Olio-ohjelmointi_harkkatyo
+# Post parcel system
 Object based programming assignment 
 
 
